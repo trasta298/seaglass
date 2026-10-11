@@ -1,0 +1,885 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seaglass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="seaglass.css">
+<script src="seaglass.js" defer></script>
+<style>
+/* ---------- page chrome (not part of the system) ---------- */
+.topbar {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 20;
+  padding-block: var(--space-3);
+  background-color: color-mix(in oklab, var(--bg) 82%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--divider);
+}
+.wordmark { font-weight: 700; font-size: var(--fs-l); }
+.page-section { padding-block: var(--space-7); }
+.page-section + .page-section { border-top: 1px solid var(--divider); }
+.section-head { margin-bottom: var(--space-5); max-width: 60ch; }
+.group-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px var(--space-3); margin: var(--space-7) 0 var(--space-4); }
+.group-head h3 { font-size: var(--fs-xl); }
+
+.intro { display: grid; gap: var(--space-6); grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); align-items: start; }
+.intro .lede { font-size: var(--fs-l); max-width: 34em; margin-top: var(--space-4); }
+.rules { list-style: none; margin: var(--space-5) 0 0; padding: 0; display: grid; gap: var(--space-3); }
+.rules li { display: grid; grid-template-columns: 14px 1fr; gap: var(--space-3); align-items: baseline; }
+.rules li::before { content: ""; width: 12px; height: 12px; translate: 0 1px; border-radius: 60% 40% 60% 40% / 45% 55% 45% 55%; background-color: color-mix(in oklab, var(--success) 45%, transparent); }
+.fit { display: grid; gap: var(--space-2); margin-top: var(--space-4); padding-top: var(--space-4); border-top: 1px solid var(--divider); font-size: 14px; }
+
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: var(--space-3); margin-top: var(--space-6); }
+.swatch { display: grid; gap: 6px; font-size: var(--fs-xs); }
+.swatch i { display: block; height: 52px; border: 1px solid var(--divider); border-radius: var(--r-field); background: var(--c); }
+.swatch b { font-weight: 700; font-size: var(--fs-s); }
+
+.app-head { margin-bottom: var(--space-5); }
+.app-grid { display: grid; gap: var(--space-5); grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: start; }
+.app-grid > .add-form { grid-column: 1 / -1; }
+.total { padding-top: var(--space-2); font-size: var(--fs-l); }
+.transfer { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; padding: 10px 0; border-bottom: 1px solid var(--divider); }
+.transfer .who { flex: 1; min-width: 10em; font-weight: 700; }
+.form-grid { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); }
+fieldset.field { border: 0; padding: 0; margin: 0; min-width: 0; }
+fieldset.field legend { padding: 0; margin-bottom: 6px; font-size: var(--fs-s); font-weight: 700; }
+
+.specimen { display: grid; gap: var(--space-4); align-content: start; align-self: start; }
+.specimen > header { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-2); flex-wrap: wrap; }
+.specimen > header code { padding: 0; background: none; font-size: var(--fs-xs); color: var(--text-muted); }
+.note { font-size: var(--fs-s); color: var(--text-muted); }
+.code {
+  margin: 0;
+  padding: var(--space-4);
+  overflow-x: auto;
+  font-family: var(--font-code);
+  font-size: var(--fs-xs);
+  line-height: 1.7;
+  color: var(--text);
+  background-color: var(--surface-2);
+  border-radius: var(--r-box);
+}
+.type-scale { display: grid; gap: var(--space-2); }
+
+@media (max-width: 760px) {
+  .intro, .app-grid { grid-template-columns: minmax(0, 1fr); }
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap row" data-justify="between" style="--gap: 12px">
+    <span class="wordmark">シーグラス</span>
+    <div class="tabs" data-size="sm" aria-label="表示テーマ">
+      <button type="button" data-theme-btn="system">自動</button>
+      <button type="button" data-theme-btn="light">ライト</button>
+      <button type="button" data-theme-btn="dark">ダーク</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="page-section">
+    <div class="wrap">
+      <div class="intro">
+        <div>
+          <h1>シーグラス</h1>
+          <p class="lede">波にもまれて角が取れた、すりガラスの UI。Liquid Glass がよく磨いた窓なら、こちらは浜で拾った破片です。光は通すけれど、映り込みも屈折もしません。</p>
+          <ul class="rules">
+            <li><span><strong>面はすりガラス。</strong>背景の色だけをぼんやり透かし、乾いている間はハイライトや反射を描かない。光るのは縁がうっすら明るくなるところだけ。</span></li>
+            <li><span><strong>角は削れた小石。</strong>丸みは点対称に少しだけずらす。文章を囲む箱(お知らせ、コード)は読みやすさを優先して四隅をそろえる。</span></li>
+            <li><span><strong>色の珍しさが重要度。</strong>浜でよく拾える白・緑・茶は面と区切りに、珍しいコバルトは操作に、一番珍しい赤は危険にだけ使う。</span></li>
+            <li><span><strong>触ると濡れる。</strong>ホバーでガラスは濡れたつやが出て透け、板のない場所には薄い水の膜が差す。押している間のつまみやチェックはレンズのように透ける。</span></li>
+          </ul>
+        </div>
+        <div class="card">
+          <dl class="kv">
+            <dt>グレーの温度</dt><dd>砂色と潮の青の中間</dd>
+            <dt>アクセント</dt><dd>コバルトブルー</dd>
+            <dt>書体</dt><dd>Zen Maru Gothic</dd>
+            <dt>角丸</dt><dd>大きく、点対称に不揃い</dd>
+            <dt>密度</dt><dd>ゆったり</dd>
+            <dt>シグネチャ</dt><dd>濡れると透ける、押すとレンズになる</dd>
+          </dl>
+          <div class="fit">
+            <p><strong>向くアプリ:</strong>旅、日記、ライフログなど日常系</p>
+            <p><strong>気をつけること:</strong>blur は描画が重い。OS の「透明度を下げる」では不透明に切り替える</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="swatches" aria-label="主要トークン">
+        <div class="swatch"><i style="--c: var(--bg)"></i><b>地</b><code>--bg</code></div>
+        <div class="swatch"><i style="--c: var(--surface-solid)"></i><b>面</b><code>--surface</code></div>
+        <div class="swatch"><i style="--c: var(--text)"></i><b>文字</b><code>--text</code></div>
+        <div class="swatch"><i style="--c: var(--accent)"></i><b>操作</b><code>--accent</code></div>
+        <div class="swatch"><i style="--c: var(--success)"></i><b>完了</b><code>--success</code></div>
+        <div class="swatch"><i style="--c: var(--warning)"></i><b>注意</b><code>--warning</code></div>
+        <div class="swatch"><i style="--c: var(--danger)"></i><b>危険</b><code>--danger</code></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="wrap">
+      <div class="section-head stack" style="--gap: 6px">
+        <h2>画面サンプル</h2>
+        <p class="muted">割り勘アプリの 1 画面です。下の部品だけで組み立てています。</p>
+      </div>
+
+      <div class="app-head row" data-justify="between" style="--gap: 16px">
+        <div class="stack" style="--gap: 4px">
+          <ol class="breadcrumb">
+            <li><a href="#trips">旅の割り勘</a></li>
+            <li><span aria-current="page">石垣島 3 泊 4 日</span></li>
+          </ol>
+          <h3 style="font-size: var(--fs-xl)">石垣島 3 泊 4 日</h3>
+        </div>
+        <div class="avatar-group" aria-label="メンバー 4 人">
+          <span class="avatar" data-glass="aqua" title="はると">は</span>
+          <span class="avatar" data-glass="olive" title="みお">み</span>
+          <span class="avatar" data-glass="amber" title="そうた">そ</span>
+          <span class="avatar" data-glass="lavender" title="あや">あ</span>
+        </div>
+      </div>
+
+      <div class="app-grid">
+        <div class="card stack">
+          <div class="row" data-justify="between">
+            <div class="row"><h3>支出</h3><span class="badge" data-tone="neutral">4 件</span></div>
+            <button type="button" class="btn" data-variant="ghost" data-icon data-size="sm" aria-label="支出の操作" popovertarget="expense-menu" style="anchor-name: --expense-menu">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h.01M12 12h.01M19 12h.01" stroke-width="3"/></svg>
+            </button>
+            <div class="menu" id="expense-menu" popover style="position-anchor: --expense-menu">
+              <button type="button" class="menu-item" popovertarget="expense-menu" popovertargetaction="hide" data-toast="CSV を書き出しました">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v12M7 11l5 5 5-5M4 20h16"/></svg>CSV で書き出す
+              </button>
+              <button type="button" class="menu-item" popovertarget="expense-menu" popovertargetaction="hide" data-toast="並び順を金額順にしました">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v16M3 16l4 4 4-4M14 6h7M14 12h5M14 18h3"/></svg>金額順に並べる
+              </button>
+            </div>
+          </div>
+          <ul class="list">
+            <li>
+              <span class="avatar" data-glass="olive">み</span>
+              <div><strong>民宿 なかゆくい</strong><span class="meta">みおが支払い、3 泊分</span></div>
+              <span class="amount">¥64,000</span>
+            </li>
+            <li>
+              <span class="avatar" data-glass="aqua">は</span>
+              <div><strong>レンタカー</strong><span class="meta">はるとが支払い、4 日間</span></div>
+              <span class="amount">¥24,800</span>
+            </li>
+            <li>
+              <span class="avatar" data-glass="amber">そ</span>
+              <div><strong>居酒屋 ぱいかじ</strong><span class="meta">そうたが支払い</span></div>
+              <span class="amount">¥18,600</span>
+            </li>
+            <li>
+              <span class="avatar" data-glass="aqua">は</span>
+              <div><strong>シュノーケルツアー</strong><span class="meta">はるとが支払い</span></div>
+              <span class="amount">¥12,000</span>
+            </li>
+          </ul>
+          <hr class="divider">
+          <div class="row total" data-justify="between">
+            <span>合計</span>
+            <span class="amount">¥119,400</span>
+          </div>
+        </div>
+
+        <div class="card stack">
+          <div class="row" data-justify="between">
+            <h3>精算</h3>
+            <span class="muted small">1 人あたり <span class="amount">¥29,850</span></span>
+          </div>
+          <div>
+            <div class="transfer">
+              <span class="who">あや → みお</span>
+              <span class="amount">¥29,850</span>
+              <span class="badge" data-tone="warning">未精算</span>
+            </div>
+            <div class="transfer">
+              <span class="who">そうた → みお</span>
+              <span class="amount">¥4,300</span>
+              <span class="badge" data-tone="warning">未精算</span>
+            </div>
+            <div class="transfer">
+              <span class="who">そうた → はると</span>
+              <span class="amount">¥6,950</span>
+              <span class="badge" data-tone="success">精算済み</span>
+            </div>
+          </div>
+          <div class="stack" style="--gap: 6px">
+            <div class="row small" data-justify="between"><span class="muted">精算の進み具合</span><span class="amount">¥6,950 / ¥41,100</span></div>
+            <div class="progress" role="progressbar" aria-valuenow="17" aria-valuemin="0" aria-valuemax="100" aria-label="精算の進み具合"><span style="--v: 17"></span></div>
+          </div>
+          <div class="row">
+            <button type="button" class="btn" data-variant="primary" data-toast="あや → みお の精算を記録しました">精算を記録</button>
+            <button type="button" class="btn" data-variant="ghost" data-toast="共有リンクをコピーしました">リンクを共有</button>
+          </div>
+        </div>
+
+        <form class="card stack add-form" id="add-form" style="--gap: 20px">
+          <h3>支出を追加</h3>
+          <div class="form-grid">
+            <div class="field">
+              <label for="f-title">内容</label>
+              <input class="input" id="f-title" value="石垣牛の焼肉">
+            </div>
+            <div class="field">
+              <label for="f-amount">金額</label>
+              <div class="input-affix"><span>¥</span><input class="input" id="f-amount" inputmode="numeric" value="21,600"></div>
+            </div>
+            <div class="field">
+              <label for="f-payer">支払った人</label>
+              <select class="input" id="f-payer">
+                <option>はると</option>
+                <option selected>あや</option>
+                <option>みお</option>
+                <option>そうた</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-grid">
+            <fieldset class="field">
+              <legend>割る人</legend>
+              <div class="row" style="--gap: 16px">
+                <label class="check"><input type="checkbox" id="f-m1" checked>はると</label>
+                <label class="check"><input type="checkbox" id="f-m2" checked>みお</label>
+                <label class="check"><input type="checkbox" id="f-m3" checked>そうた</label>
+                <label class="check"><input type="checkbox" id="f-m4" checked>あや</label>
+              </div>
+            </fieldset>
+            <div class="field">
+              <span class="label">割り方</span>
+              <label class="switch"><input type="checkbox" role="switch" id="f-even" checked>均等に割る</label>
+            </div>
+          </div>
+          <div class="row" data-justify="end">
+            <button type="reset" class="btn" data-variant="secondary">クリア</button>
+            <button type="submit" class="btn" data-variant="primary">支出を追加</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="wrap">
+      <div class="section-head stack" style="--gap: 6px">
+        <h2>部品</h2>
+        <p class="muted">クラス名と data 属性だけで見た目が決まります。AI にはこのマークアップを書かせます。</p>
+      </div>
+
+      <!-- 基本 -->
+      <div class="group-head"><h3>基本</h3><p class="muted small">文字、リンク、コード、区切り</p></div>
+      <div class="grid" style="--min: 320px; --gap: 20px">
+        <div class="card specimen">
+          <header><h4>文字</h4><code>h1–h4 p .small .muted</code></header>
+          <div class="type-scale">
+            <p style="font-size: var(--fs-2xl); font-weight: 700; line-height: 1.3">見出し 2 / 36px</p>
+            <p style="font-size: var(--fs-xl); font-weight: 700">見出し 3 / 24px</p>
+            <p style="font-size: var(--fs-l); font-weight: 700">見出し 4 / 18px</p>
+            <p>本文 15px。割り勘の精算は、旅行が終わってから 7 日以内に済ませましょう。</p>
+            <p class="small muted">補足 13px。最終更新は 10 月 11 日です。</p>
+          </div>
+        </div>
+        <div class="card specimen">
+          <header><h4>リンク、コード、キー</h4><code>a code kbd</code></header>
+          <p>詳しくは <a href="#help">精算のしくみ</a> を見てください。</p>
+          <p>金額は <code>¥21,600</code> のように入力します。</p>
+          <p>検索は <kbd>⌘</kbd> <kbd>K</kbd>、保存は <kbd>⌘</kbd> <kbd>S</kbd> です。</p>
+          <hr class="divider">
+          <div class="divider" role="separator"><span>または</span></div>
+        </div>
+      </div>
+
+      <!-- 操作 -->
+      <div class="group-head"><h3>操作</h3><p class="muted small">ボタン、メニュー、チップ</p></div>
+      <div class="grid" style="--min: 320px; --gap: 20px">
+        <div class="card specimen">
+          <header><h4>ボタン</h4><code>.btn[data-variant]</code></header>
+          <div class="row">
+            <button type="button" class="btn" data-variant="primary">保存する</button>
+            <button type="button" class="btn" data-variant="secondary">下書き</button>
+            <button type="button" class="btn" data-variant="ghost">キャンセル</button>
+            <button type="button" class="btn" data-variant="danger">削除</button>
+          </div>
+          <div class="row">
+            <button type="button" class="btn" data-variant="primary" data-size="sm">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>支出を追加
+            </button>
+            <button type="button" class="btn" data-variant="secondary" data-size="sm">小さいボタン</button>
+            <button type="button" class="btn" data-variant="primary" data-size="sm" disabled>送信できません</button>
+          </div>
+          <p class="note">カーソルを乗せると濡れて透けます。押すと 1px だけ沈みます。</p>
+        </div>
+
+        <div class="card specimen">
+          <header><h4>アイコンと読み込み中</h4><code>[data-icon] [data-loading]</code></header>
+          <div class="row">
+            <button type="button" class="btn" data-variant="secondary" data-icon aria-label="編集" data-tooltip="編集">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z"/></svg>
+            </button>
+            <button type="button" class="btn" data-variant="secondary" data-icon aria-label="コピー" data-tooltip="コピー">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
+            </button>
+            <button type="button" class="btn" data-variant="ghost" data-icon aria-label="削除" data-tooltip="削除">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>
+            </button>
+          </div>
+          <div class="row">
+            <button type="button" class="btn" data-variant="primary" data-demo-loading>レシートを読み取る</button>
+            <button type="button" class="btn" data-variant="secondary" data-loading>送信中</button>
+          </div>
+          <p class="note">読み込み中は文字を隠して、小石の形のスピナーを出します。</p>
+        </div>
+
+        <div class="card specimen">
+          <header><h4>メニュー</h4><code>.menu[popover] .menu-item</code></header>
+          <div>
+            <button type="button" class="btn" data-variant="secondary" popovertarget="demo-menu" style="anchor-name: --demo-menu">
+              操作を選ぶ
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="menu" id="demo-menu" popover style="position-anchor: --demo-menu">
+              <button type="button" class="menu-item" popovertarget="demo-menu" popovertargetaction="hide" data-toast="編集を開きました">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z"/></svg>編集<kbd>E</kbd>
+              </button>
+              <button type="button" class="menu-item" popovertarget="demo-menu" popovertargetaction="hide" data-toast="複製しました">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>複製<kbd>D</kbd>
+              </button>
+              <div class="menu-sep" role="separator"></div>
+              <button type="button" class="menu-item" data-tone="danger" popovertarget="demo-menu" popovertargetaction="hide" data-toast="支出を削除しました">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>削除
+              </button>
+            </div>
+          </div>
+          <p class="note">ボタンのすぐ下に、すりガラスの板が開きます。画面の端では上や左に回り込みます。</p>
+        </div>
+
+        <div class="card specimen">
+          <header><h4>チップ</h4><code>.chip[aria-pressed]</code></header>
+          <div class="row" data-demo-chips>
+            <button type="button" class="chip" aria-pressed="true">すべて</button>
+            <button type="button" class="chip" aria-pressed="false">食事</button>
+            <button type="button" class="chip" aria-pressed="false">宿</button>
+            <button type="button" class="chip" aria-pressed="false">移動</button>
+          </div>
+          <div class="row">
+            <span class="chip">はると<button type="button" aria-label="はるとを外す" data-remove><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button></span>
+            <span class="chip">みお<button type="button" aria-label="みおを外す" data-remove><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button></span>
+            <span class="chip">そうた<button type="button" aria-label="そうたを外す" data-remove><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button></span>
+          </div>
+          <p class="note">上は絞り込み用、下は選んだものを外せるタグです。</p>
+        </div>
+      </div>
+
+      <!-- 入力 -->
+      <div class="group-head"><h3>入力</h3><p class="muted small">テキスト、セレクト、日付、ファイル、選択、スライダー</p></div>
+      <div class="grid" style="--min: 320px; --gap: 20px">
+        <div class="card specimen">
+          <header><h4>テキスト</h4><code>.field .input</code></header>
+          <div class="field">
+            <label for="c-email">メールアドレス</label>
+            <input class="input" id="c-email" type="email" placeholder="you@example.com">
+            <span class="hint">精算のお知らせが届きます</span>
+          </div>
+          <div class="field">
+            <label for="c-search">検索</label>
+            <div class="input-affix">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+              <input class="input" id="c-search" type="search" placeholder="店名やメモで探す">
+            </div>
+          </div>
+          <div class="field" data-invalid>
+            <label for="c-amount">金額</label>
+            <div class="input-affix"><span>¥</span><input class="input" id="c-amount" value="12,0OO" aria-invalid="true" aria-describedby="c-amount-hint"></div>
+            <span class="hint" id="c-amount-hint">数字だけで入力してください。「O」が混ざっています</span>
+          </div>
+          <div class="field">
+            <label for="c-memo">メモ<span class="optional">任意</span></label>
+            <textarea class="input" id="c-memo" placeholder="誰の分を立て替えたかなど"></textarea>
+          </div>
+          <div class="field">
+            <label for="c-disabled">通貨</label>
+            <input class="input" id="c-disabled" value="JPY" disabled>
+          </div>
+        </div>
+
+        <div class="card specimen">
+          <header><h4>セレクト</h4><code>select.input</code></header>
+          <div class="field">
+            <label for="c-currency">通貨</label>
+            <select class="input" id="c-currency">
+              <option>JPY 日本円</option>
+              <option selected>USD 米ドル</option>
+              <option>TWD 台湾ドル</option>
+              <option>EUR ユーロ</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="c-category">カテゴリ</label>
+            <select class="input" id="c-category">
+              <option>食事</option>
+              <option>宿</option>
+              <option selected>移動</option>
+              <option>体験</option>
+              <option>その他</option>
+            </select>
+          </div>
+          <p class="note">開いた一覧もすりガラスの板です。選んだ項目にはコバルトのチェックが付きます。対応していないブラウザでは OS 標準の一覧になります。</p>
+        </div>
+
+        <div class="card specimen">
+          <header><h4>日付とファイル</h4><code>.input[type=date] .dropzone</code></header>
+          <div class="form-grid">
+            <div class="field">
+              <label for="c-from">出発日</label>
+              <input class="input" id="c-from" type="date" value="2026-10-02">
+            </div>
+            <div class="field">
+              <label for="c-to">帰着日</label>
+              <input class="input" id="c-to" type="date" value="2026-10-05">
+            </div>
+          </div>
+          <div class="field">
+            <span class="label">レシート</span>
+            <label class="dropzone" id="dropzone">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg>
+              <strong>画像をここに置く</strong>
+              <span class="small muted" data-file-label>またはクリックして選ぶ。JPG と PNG、10MB まで</span>
+              <input type="file" id="c-file" accept="image/*">
+            </label>
+          </div>
+        </div>
+
+        <div class="card specimen">
+          <header><h4>選択</h4><code>.check .switch</code></header>
+          <div class="row" style="--gap: 16px">
+            <label class="check"><input type="radio" name="c-split" id="c-r1" checked>均等</label>
+            <label class="check"><input type="radio" name="c-split" id="c-r2">金額を指定</label>
+            <label class="check"><input type="radio" name="c-split" id="c-r3">割合</label>
+          </div>
+          <label class="check"><input type="checkbox" id="c-c1" checked>端数は支払った人が持つ</label>
+          <label class="check"><input type="checkbox" id="c-c2">メンバーに精算を知らせる</label>
+          <label class="switch"><input type="checkbox" role="switch" id="c-s1" checked>精算の通知を受け取る</label>
+          <label class="switch"><input type="checkbox" role="switch" id="c-s2">為替レートを自動で更新</label>
+          <p class="note">チェックすると、コバルトのガラス片が転がって収まり、白い刻印のようなチェックが入ります。押している間はレンズのように透けます。</p>
+        </div>
+
+        <div class="card specimen">
+          <header><h4>スライダー</h4><code>input.range</code></header>
+          <div class="field">
+            <div class="row" data-justify="between"><label for="c-tip">チップの割合</label><span class="amount" data-range-out="c-tip">15%</span></div>
+            <input class="range" id="c-tip" type="range" min="0" max="30" value="15">
+          </div>
+          <div class="field">
+            <div class="row" data-justify="between"><label for="c-budget">1 日の予算</label><span class="amount" data-range-out="c-budget" data-prefix="¥">¥12,000</span></div>
+            <input class="range" id="c-budget" type="range" min="3000" max="30000" step="1000" value="12000">
+          </div>
+          <p class="note">つまみはスイッチと同じガラス玉です。つかんでいる間はレンズになります。</p>
+        </div>
+      </div>
+
+      <!-- ナビゲーション -->
+      <div class="group-head"><h3>ナビゲーション</h3><p class="muted small">タブ、サイドナビ、パンくず、ページ送り</p></div>
+      <div class="grid" style="--min: 320px; --gap: 20px">
+        <div class="card specimen">
+          <header><h4>タブ</h4><code>.tabs</code></header>
+          <div class="tabs" role="tablist" aria-label="支出の絞り込み" data-demo-tabs>
+            <button type="button" role="tab" aria-selected="true">すべて</button>
+            <button type="button" role="tab" aria-selected="false">未精算</button>
+            <button type="button" role="tab" aria-selected="false">精算済み</button>
+          </div>
+          <div class="tabs" data-size="sm" role="tablist" aria-label="期間" data-demo-tabs>
+            <button type="button" role="tab" aria-selected="false">週</button>
+            <button type="button" role="tab" aria-selected="true">月</button>
+            <button type="button" role="tab" aria-selected="false">年</button>
+          </div>
+        </div>
+
+        <div class="card specimen">
+          <header><h4>サイドナビ</h4><code>.nav .nav-item</code></header>
+          <nav class="nav" aria-label="メイン">
+            <a class="nav-item" href="#trips" aria-current="page">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg>旅の一覧<span class="badge" data-tone="warning">2</span>
+            </a>
+            <a class="nav-item" href="#members">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M16 4.5a3.5 3.5 0 0 1 0 7M18 14c2 .6 3 2.6 3 6"/></svg>メンバー
+            </a>
+            <a class="nav-item" href="#settings">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>設定
+            </a>
+          </nav>
+        </div>
+
+        <div class="card specimen">
+          <header><h4>パンくずとページ送り</h4><code>.breadcrumb .pagination</code></header>
+          <ol class="breadcrumb">
+            <li><a href="#home">ホーム</a></li>
+            <li><a href="#trips">旅の割り勘</a></li>
+            <li><span aria-current="page">石垣島 3 泊 4 日</span></li>
+          </ol>
+          <nav class="pagination" aria-label="ページ">
+            <a class="page" href="#p1" aria-label="前のページ" aria-disabled="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a>
+            <a class="page" href="#p1" aria-current="page">1</a>
+            <a class="page" href="#p2">2</a>
+            <a class="page" href="#p3">3</a>
+            <span class="page-gap">…</span>
+            <a class="page" href="#p12">12</a>
+            <a class="page" href="#p2" aria-label="次のページ"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+          </nav>
+        </div>
+      </div>
+
+      <!-- 表示 -->
+      <div class="group-head"><h3>表示</h3><p class="muted small">数値、一覧、表、バッジ、ツールチップ、アコーディオン</p></div>
+      <div class="grid" style="--min: 320px; --gap: 20px">
+        <div class="card specimen">
+          <header><h4>数値と項目</h4><code>.stat .kv</code></header>
+          <div class="row" style="--gap: 32px">
+            <div class="stat">
+              <span class="stat-label">今月の支出</span>
+              <span class="stat-value">¥84,200</span>
+              <span class="stat-delta" data-tone="warning">先月より +12%</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">未精算</span>
+              <span class="stat-value">¥34,150</span>
+              <span class="stat-delta" data-tone="success">2 件</span>
+            </div>
+          </div>
+          <hr class="divider">
+          <dl class="kv">
+            <dt>期間</dt><dd>10 月 2 日〜5 日</dd>
+            <dt>メンバー</dt><dd>4 人</dd>
+            <dt>基準通貨</dt><dd>JPY</dd>
+          </dl>
+        </div>
+
+        <div class="card specimen">
+          <header><h4>一覧</h4><code>.list</code></header>
+          <ul class="list">
+            <li>
+              <span class="avatar" data-glass="olive">み</span>
+              <div><strong>みお</strong><span class="meta">受け取り ¥34,150</span></div>
+              <span class="badge" data-tone="warning">未精算</span>
+            </li>
+            <li>
+              <span class="avatar" data-glass="aqua">は</span>
+              <div><strong>はると</strong><span class="meta">受け取り ¥6,950</span></div>
+              <span class="badge" data-tone="success">精算済み</span>
+            </li>
+            <li>
+              <span class="avatar" data-glass="lavender">あ</span>
+              <div><strong>あや</strong><span class="meta">支払い ¥29,850</span></div>
+              <span class="badge" data-tone="warning">未精算</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card specimen">
+          <header><h4>表</h4><code>.table</code></header>
+          <div class="table-scroll">
+            <table class="table">
+              <thead><tr><th>メンバー</th><th class="num">支払った</th><th class="num">差額</th></tr></thead>
+              <tbody>
+                <tr><td>はると</td><td class="num">¥36,800</td><td class="num">+¥6,950</td></tr>
+                <tr><td>みお</td><td class="num">¥64,000</td><td class="num">+¥34,150</td></tr>
+                <tr><td>そうた</td><td class="num">¥18,600</td><td class="num">−¥11,250</td></tr>
+                <tr><td>あや</td><td class="num">¥0</td><td class="num">−¥29,850</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card specimen">
+          <header><h4>バッジ、アバター、ツールチップ</h4><code>.badge .avatar[data-glass] [data-tooltip]</code></header>
+          <div class="row">
+            <span class="badge" data-tone="neutral">下書き</span>
+            <span class="badge" data-tone="info">USD</span>
+            <span class="badge" data-tone="success">精算済み</span>
+            <span class="badge" data-tone="warning">未精算</span>
+            <span class="badge" data-tone="danger">期限切れ</span>
+          </div>
+          <div class="row" style="--gap: 12px">
+            <span class="avatar" data-size="sm" data-glass="aqua">は</span>
+            <span class="avatar" data-glass="olive">み</span>
+            <span class="avatar" data-size="lg" data-glass="amber">そ</span>
+            <span class="avatar" data-glass="lavender">あ</span>
+            <span class="avatar">ゆ</span>
+          </div>
+          <p class="note">アバターの色は浜で拾えるガラスの色から選びます(<code>data-glass</code>: aqua、olive、amber、lavender、指定なしは白)。状態を表す色とは分けています。</p>
+          <div class="row">
+            <span class="small muted">為替レート</span>
+            <button type="button" class="btn" data-variant="ghost" data-icon data-size="sm" aria-label="為替レートについて" data-tooltip="10 月 11 日 9 時のレート">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="card specimen">
+          <header><h4>アコーディオン</h4><code>details.accordion</code></header>
+          <div>
+            <details class="accordion" open>
+              <summary>端数はどう扱われますか?</summary>
+              <div class="accordion-body">1 円未満の端数は、その支出を払った人が持ちます。設定で切り上げにも変えられます。</div>
+            </details>
+            <details class="accordion">
+              <summary>外貨の支出はいつのレートで計算しますか?</summary>
+              <div class="accordion-body">支出を記録した日のレートを使います。あとから手動で直すこともできます。</div>
+            </details>
+            <details class="accordion">
+              <summary>メンバーを途中で追加できますか?</summary>
+              <div class="accordion-body">できます。追加より前の支出には含まれません。</div>
+            </details>
+          </div>
+        </div>
+      </div>
+
+      <!-- フィードバック -->
+      <div class="group-head"><h3>フィードバック</h3><p class="muted small">お知らせ、進み具合、読み込み、ダイアログ、シート、トースト、空の状態</p></div>
+      <div class="grid" style="--min: 320px; --gap: 20px">
+        <div class="card specimen">
+          <header><h4>お知らせ</h4><code>.callout[data-tone]</code></header>
+          <div class="callout" data-tone="info">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+            <div><strong>レートを更新しました</strong>1 USD = 148.20 円で計算し直しています。</div>
+          </div>
+          <div class="callout" data-tone="warning">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2 20h20L12 3zM12 10v4M12 17h.01"/></svg>
+            <div><strong>あやさんの精算が残っています</strong>旅行の終了から 7 日が過ぎました。</div>
+          </div>
+          <div class="callout" data-tone="success">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg>
+            <div><strong>すべて精算できました</strong>おつかれさまでした。</div>
+          </div>
+          <div class="callout" data-tone="danger">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+            <div><strong>レシートを読み取れませんでした</strong>明るい場所で、文字が写るように撮り直してください。</div>
+          </div>
+        </div>
+
+        <div class="card specimen">
+          <header><h4>進み具合</h4><code>.progress</code></header>
+          <div class="stack" style="--gap: 6px">
+            <div class="row small" data-justify="between"><span class="muted">予算の消化</span><span class="amount">68%</span></div>
+            <div class="progress" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100" aria-label="予算の消化"><span style="--v: 68"></span></div>
+          </div>
+          <div class="stack" style="--gap: 6px">
+            <div class="row small" data-justify="between"><span class="muted">レシートの読み取り</span><span class="amount">完了</span></div>
+            <div class="progress" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="レシートの読み取り"><span style="--v: 100"></span></div>
+          </div>
+          <div class="stack" style="--gap: 6px">
+            <div class="row small" data-justify="between"><span class="muted">為替レートを取得中</span></div>
+            <div class="progress" role="progressbar" aria-label="為替レートを取得中"><span></span></div>
+          </div>
+          <p class="note">完了すると緑に変わり、数字も「完了」になります。終わりが分からないときは、<code>aria-valuenow</code> を付けずに流れる表示にします。</p>
+        </div>
+
+        <div class="card specimen">
+          <header><h4>読み込み</h4><code>.spinner .skeleton</code></header>
+          <div class="row" style="--gap: 12px">
+            <span class="spinner" role="status" aria-label="読み込み中"></span>
+            <span class="small muted">レシートを読み取っています</span>
+          </div>
+          <hr class="divider">
+          <div class="row" style="--gap: 12px; flex-wrap: nowrap">
+            <span class="skeleton" style="width: 34px; height: 34px; border-radius: 50%; flex: none"></span>
+            <div class="stack" style="--gap: 8px; flex: 1">
+              <span class="skeleton" style="width: 60%"></span>
+              <span class="skeleton" style="width: 40%; height: 12px"></span>
+            </div>
+          </div>
+          <p class="note">スケルトンは、濡れたつやがゆっくり通り過ぎます。</p>
+        </div>
+
+        <div class="card specimen">
+          <header><h4>ダイアログ、シート、トースト</h4><code>dialog.dialog dialog.sheet .toast</code></header>
+          <p class="small muted">削除の確認はダイアログ、詳しい編集は横から出るシート、完了の知らせはトーストで出します。</p>
+          <div class="row">
+            <button type="button" class="btn" data-variant="danger" id="open-dialog">支出を削除</button>
+            <button type="button" class="btn" data-variant="secondary" id="open-sheet">詳細を編集</button>
+            <button type="button" class="btn" data-variant="ghost" data-toast="支出を追加しました">トースト</button>
+          </div>
+        </div>
+
+        <div class="card specimen">
+          <header><h4>空の状態</h4><code>.empty</code></header>
+          <div class="empty">
+            <span class="empty-mark" aria-hidden="true"></span>
+            <strong>まだ支出がありません</strong>
+            <p class="small muted">最初の支出を追加すると、精算額がここに出ます。</p>
+            <button type="button" class="btn" data-variant="primary" data-size="sm" data-toast="支出の入力欄を開きました">支出を追加</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="stack" style="margin-top: var(--space-7); --gap: 10px">
+        <h3>マークアップの例</h3>
+        <pre class="code"><code>&lt;button class="btn" data-variant="primary"&gt;支出を追加&lt;/button&gt;
+&lt;button class="btn" data-variant="ghost" data-icon aria-label="編集" data-tooltip="編集"&gt;&lt;svg class="icon"&gt;…&lt;/svg&gt;&lt;/button&gt;
+
+&lt;div class="field" data-invalid&gt;
+  &lt;label for="amount"&gt;金額&lt;/label&gt;
+  &lt;input class="input" id="amount"&gt;
+  &lt;span class="hint"&gt;数字だけで入力してください&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;button class="btn" popovertarget="m" style="anchor-name: --m"&gt;操作&lt;/button&gt;
+&lt;div class="menu" id="m" popover style="position-anchor: --m"&gt;
+  &lt;button class="menu-item"&gt;編集&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;div class="progress" role="progressbar" aria-valuenow="68"&gt;&lt;span style="--v: 68"&gt;&lt;/span&gt;&lt;/div&gt;</code></pre>
+      </div>
+    </div>
+  </section>
+</main>
+
+<dialog class="dialog" id="confirm-dialog" aria-labelledby="dlg-title">
+  <form method="dialog" class="stack" style="--gap: 16px">
+    <h3 id="dlg-title">民宿 なかゆくい を削除しますか?</h3>
+    <p class="muted small">¥64,000 の支出が消え、全員の精算額が計算し直されます。</p>
+    <div class="row" data-justify="end">
+      <button class="btn" data-variant="ghost" value="cancel">キャンセル</button>
+      <button class="btn" data-variant="danger" value="delete">削除する</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog class="sheet" id="edit-sheet" aria-labelledby="sheet-title">
+  <form method="dialog" class="stack" style="--gap: 20px; height: 100%">
+    <div class="row" data-justify="between">
+      <h3 id="sheet-title">支出の詳細</h3>
+      <button class="btn" data-variant="ghost" data-icon data-size="sm" value="cancel" aria-label="閉じる">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="field">
+      <label for="s-title">内容</label>
+      <input class="input" id="s-title" value="民宿 なかゆくい">
+    </div>
+    <div class="field">
+      <label for="s-amount">金額</label>
+      <div class="input-affix"><span>¥</span><input class="input" id="s-amount" value="64,000"></div>
+    </div>
+    <div class="field">
+      <label for="s-cat">カテゴリ</label>
+      <select class="input" id="s-cat">
+        <option>食事</option>
+        <option selected>宿</option>
+        <option>移動</option>
+      </select>
+    </div>
+    <div class="row" data-justify="end" style="margin-top: auto">
+      <button class="btn" data-variant="ghost" value="cancel">キャンセル</button>
+      <button class="btn" data-variant="primary" value="save">保存する</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"><span data-toast-text></span><button type="button" class="btn" data-variant="ghost" data-size="sm" id="toast-undo">元に戻す</button></div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+
+  function setTheme(t) {
+    if (t === "system") delete root.dataset.theme; else root.dataset.theme = t;
+    document.querySelectorAll("[data-theme-btn]").forEach(function (b) {
+      b.setAttribute("aria-pressed", String(b.dataset.themeBtn === t));
+    });
+  }
+  document.querySelectorAll("[data-theme-btn]").forEach(function (b) {
+    b.addEventListener("click", function () { setTheme(b.dataset.themeBtn); });
+  });
+  setTheme(root.dataset.theme || "system");
+
+  document.querySelectorAll("[data-demo-tabs]").forEach(function (list) {
+    list.addEventListener("click", function (e) {
+      var t = e.target.closest("[role=tab]");
+      if (!t) return;
+      list.querySelectorAll("[role=tab]").forEach(function (b) { b.setAttribute("aria-selected", String(b === t)); });
+    });
+  });
+
+  document.querySelectorAll(".range").forEach(function (r) {
+    var out = document.querySelector('[data-range-out="' + r.id + '"]');
+    if (!out) return;
+    function update() {
+      out.textContent = out.dataset.prefix ? out.dataset.prefix + Number(r.value).toLocaleString("ja-JP") : r.value + "%";
+    }
+    update();
+    r.addEventListener("input", update);
+  });
+
+  document.querySelectorAll("[data-demo-chips]").forEach(function (group) {
+    group.addEventListener("click", function (e) {
+      var c = e.target.closest(".chip");
+      if (c) c.setAttribute("aria-pressed", String(c.getAttribute("aria-pressed") !== "true"));
+    });
+  });
+  document.querySelectorAll("[data-remove]").forEach(function (b) {
+    b.addEventListener("click", function () { b.closest(".chip").remove(); });
+  });
+
+  var dz = document.getElementById("dropzone");
+  var dzInput = document.getElementById("c-file");
+  ["dragenter", "dragover"].forEach(function (t) { dz.addEventListener(t, function () { dz.setAttribute("data-over", ""); }); });
+  ["dragleave", "drop"].forEach(function (t) { dz.addEventListener(t, function () { dz.removeAttribute("data-over"); }); });
+  dzInput.addEventListener("change", function () {
+    if (dzInput.files.length) dz.querySelector("[data-file-label]").textContent = dzInput.files[0].name + " を選びました";
+  });
+
+  var toast = document.getElementById("toast");
+  var toastText = toast.querySelector("[data-toast-text]");
+  var timer;
+  function showToast(msg) {
+    toastText.textContent = msg;
+    toast.setAttribute("data-open", "");
+    clearTimeout(timer);
+    timer = setTimeout(function () { toast.removeAttribute("data-open"); }, 3200);
+  }
+  document.getElementById("toast-undo").addEventListener("click", function () {
+    toast.removeAttribute("data-open");
+  });
+  document.querySelectorAll("[data-toast]").forEach(function (b) {
+    b.addEventListener("click", function () { showToast(b.dataset.toast); });
+  });
+
+  document.querySelectorAll("[data-demo-loading]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      b.setAttribute("data-loading", "");
+      setTimeout(function () { b.removeAttribute("data-loading"); showToast("レシートを読み取りました"); }, 1600);
+    });
+  });
+
+  document.getElementById("add-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    showToast("支出を追加しました");
+  });
+
+  var dlg = document.getElementById("confirm-dialog");
+  document.getElementById("open-dialog").addEventListener("click", function () { dlg.showModal(); });
+  dlg.addEventListener("close", function () {
+    if (dlg.returnValue === "delete") showToast("支出を削除しました");
+  });
+
+  var sheet = document.getElementById("edit-sheet");
+  document.getElementById("open-sheet").addEventListener("click", function () { sheet.showModal(); });
+  sheet.addEventListener("close", function () {
+    if (sheet.returnValue === "save") showToast("支出を保存しました");
+  });
+})();
+</script>
+</body>
+</html>

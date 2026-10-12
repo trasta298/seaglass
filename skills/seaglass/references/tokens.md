@@ -31,13 +31,13 @@ Each is a single OKLCH value; roles derive from it with relative color syntax, s
 |---|---|
 | `--glass-cobalt` | Primary buttons, pressed chips |
 | `--glass-milk` | Default and secondary buttons, chips, inputs and selects (via `--field`), `.input-affix`, `.composer`, dropzone, toasts |
-| `--glass-sea` | `.tabs`, tooltips, `.avatar[data-glass="sea"]` |
+| `--glass-sea` | `.tabs`, tooltips (sea avatars use a stronger sea so they weigh the same as the other avatars) |
 | `--glass-coral` | Danger buttons |
 | `--glass-aqua`, `--glass-amber`, `--glass-lavender` | Avatars |
 | `--glass-stone` | Avatar with no `data-glass` |
 | `--field` | Input and select background: `--glass-milk` at 86% |
 
-`--ink` keeps the glass's hue at low lightness (deep navy on cobalt, deep green on sea, deep red-brown on coral). On tinted glass, text uses `--ink`, secondary text 82% of it, icons and placeholders 70%; never `--text-muted`. Ghost buttons take the ink of the glass they sit on, or `--text` on neutral panes. Don't put `--glass-*` on cards or other large panes.
+`--ink` keeps the glass's hue: a deep shade in light mode (navy on cobalt, green on sea, red-brown on coral) and a pale shade in dark mode. On tinted glass, text uses `--ink`, secondary text 82% of it, icons and placeholders 70%; never `--text-muted`. Ghost buttons take the ink of the glass they sit on, or `--text` on neutral panes. Don't put `--glass-*` on cards or other large panes.
 
 **Neutral** — panes, text and light.
 

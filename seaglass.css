@@ -84,7 +84,7 @@
   --bg-image:
     radial-gradient(130% 55% at 50% -12%, light-dark(oklch(from var(--sea) .82 .05 h / .4), oklch(from var(--sea) .6 .05 h / .07)), transparent 62%),
     radial-gradient(16% 12% at 10% 70%, light-dark(oklch(from var(--sea) .75 .06 h / .15), oklch(from var(--sea) .7 .06 h / .03)), transparent 70%),
-    radial-gradient(12% 10% at 88% 40%, light-dark(oklch(from var(--cobalt) .6 .1 h / .1), oklch(from var(--cobalt) .65 .1 h / .03)), transparent 70%),
+    radial-gradient(12% 10% at 88% 40%, light-dark(oklch(from var(--sea) .7 .06 h / .12), oklch(from var(--sea) .65 .06 h / .03)), transparent 70%),
     radial-gradient(14% 10% at 72% 90%, light-dark(oklch(from var(--amber) .65 .08 h / .12), oklch(from var(--amber) .65 .08 h / .03)), transparent 70%),
     linear-gradient(180deg, light-dark(oklch(from var(--sea) .91 .012 h), oklch(from var(--stone) .19 .022 h)) 0%, var(--bg) 45%, light-dark(oklch(from var(--shore) .925 .016 h), oklch(from var(--stone) .18 .02 h)) 100%);
 
@@ -281,6 +281,7 @@ kbd {
   --tint: var(--glass-milk);
   color: var(--ink);
   background-color: color-mix(in oklab, var(--tint) 88%, transparent);
+  background-image: var(--frost);
   border: 1px solid var(--border);
   border-radius: var(--r-btn);
   box-shadow: inset 0 1px 0 var(--border);
@@ -461,11 +462,12 @@ select.input {
   background-color: color-mix(in oklab, var(--accent-fill) 86%, transparent);
   background-image: var(--frost);
   border-color: transparent;
-  box-shadow: inset 0 -2px 3px var(--well-shadow), 0 3px 8px -3px color-mix(in oklab, var(--accent-fill) 70%, transparent);
+  box-shadow: inset 0 -2px 3px var(--well-shadow), 0 3px 8px -3px var(--shadow-c);
 }
 .check input:active {
   scale: 1.14;
   background-color: var(--lens-fill);
+  background-image: none;
   border-color: transparent;
   box-shadow: var(--lens);
   -webkit-backdrop-filter: saturate(1.25);
@@ -774,7 +776,7 @@ select.input {
 
 .avatar { --tint: var(--glass-stone); }
 .avatar[data-glass="aqua"] { --tint: var(--glass-aqua); }
-.avatar[data-glass="sea"] { --tint: var(--glass-sea); }
+.avatar[data-glass="sea"] { --tint: light-dark(oklch(from var(--sea) .85 calc(c * .55) h), oklch(from var(--sea) .45 calc(c * .7) h)); }
 .avatar[data-glass="amber"] { --tint: var(--glass-amber); }
 .avatar[data-glass="lavender"] { --tint: var(--glass-lavender); }
 .avatar {

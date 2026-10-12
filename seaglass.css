@@ -33,28 +33,25 @@
   --well: light-dark(rgba(255,255,255,.45), rgba(150,215,205,.09));
   --well-shadow: light-dark(rgba(26,53,55,.14), rgba(0,0,0,.4));
   --knob: light-dark(rgba(255,255,255,.94), rgba(236,251,248,.94));
-  --field: light-dark(rgba(222,236,230,.86), rgba(52,76,79,.66));
   /* Tinted glass for floating controls; text on them uses --ink, a deep shade of the same glass. */
   --glass-cobalt: light-dark(#B3C4F6, #34509E);
   --glass-sea: light-dark(#BFE2D5, #2B5B55);
   --glass-milk: light-dark(#E2EDE8, #34494C);
   --glass-coral: light-dark(#F3C2BA, #7E3530);
+  --field: color-mix(in oklab, var(--glass-milk) 86%, transparent);
   --border: light-dark(rgba(255,255,255,.78), rgba(210,250,240,.18));
   --control-border: light-dark(rgba(26,53,55,.30), rgba(210,250,240,.34));
   --divider: light-dark(rgba(31,59,62,.12), rgba(210,250,240,.12));
   --text: light-dark(#1A3537, #F1FAF8);
   --text-muted: light-dark(#44605F, #BCD7D3);
   --accent: light-dark(#2B4D9C, #9DB4F5);
-  --on-accent: light-dark(#F2F5FF, #0B1838);
+  --on-accent: light-dark(rgba(255,255,255,.95), #1B2F66);
   --danger: light-dark(#AE3434, #F49A90);
   --success: light-dark(#2B775D, #88D8B8);
   --warning: light-dark(#8F5C0E, #EAC27A);
   --info: light-dark(#28717F, #8AD0DD);
-  --tooltip-bg: light-dark(rgba(22,66,64,.86), rgba(48,94,96,.92));
-  --tooltip-fg: #F1FAF8;
   --progress-c: light-dark(#3A76B4, #9DB4F5);
   --focus: light-dark(#2E7C6F, #8ED8C6);
-  --focus-ring: 0 0 0 4px color-mix(in oklab, var(--focus) 24%, transparent);
   --scrim: light-dark(rgba(26,53,55,.35), rgba(0,0,0,.6));
   --shadow-c: light-dark(rgba(40,70,70,.24), rgba(0,0,0,.5));
   --shadow-card:
@@ -83,10 +80,11 @@
   --frost: var(--frost-light);
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
   --grain-o: .12;
+  --calendar-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 6h14v14H5zM5 10h14M9 3v4M15 3v4' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   --check-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.4 6.2 4.9 8.6 9.6 3.4' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   --chevron-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   --chevron-right-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 6l6 6-6 6' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  --chevron-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' fill='none' stroke='%2344605F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  --chevron-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' fill='none' stroke='%236B7878' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 :root[data-theme="light"] { color-scheme: light; }
 :root[data-theme="dark"] { color-scheme: dark; }
@@ -94,16 +92,18 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --fw-body: 500; --frost: var(--frost-dark); --grain-o: .11;
-    --chevron-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' fill='none' stroke='%23BCD7D3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    --chevron-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' fill='none' stroke='%23A8B1B2' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   }
 }
 :root[data-theme="dark"] {
   --fw-body: 500; --frost: var(--frost-dark); --grain-o: .11;
-  --chevron-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' fill='none' stroke='%23BCD7D3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  --chevron-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' fill='none' stroke='%23A8B1B2' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
 /* ---------- base ---------- */
-.btn, .tabs, .composer { --ink: light-dark(color-mix(in oklab, var(--tint), #06161A 74%), color-mix(in oklab, var(--tint), #FFFFFF 84%)); }
+/* Ink is a deep shade of the glass's own hue, so text and icons read as part of the piece. */
+.btn, .chip, .tabs, .composer, .input, .input-affix, .dropzone, .toast, [data-tooltip]::after { --ink: light-dark(oklch(from var(--tint) .34 calc(c * 1.6) h), oklch(from var(--tint) .94 calc(c * .5) h)); }
+.card, .menu, .dialog, .sheet { --tint: initial; }
 @property --gap { syntax: "*"; inherits: false; }
 *, *::before, *::after { box-sizing: border-box; }
 body {
@@ -184,7 +184,8 @@ kbd {
 
 /* ---------- buttons ---------- */
 .btn {
-  --btn-fg: var(--text);
+  --tint: var(--glass-milk);
+  --btn-fg: var(--ink);
   position: relative;
   isolation: isolate;
   display: inline-flex;
@@ -199,7 +200,7 @@ kbd {
   line-height: 1.2;
   color: var(--btn-fg);
   text-decoration: none;
-  background-color: var(--surface);
+  background-color: color-mix(in oklab, var(--tint) 88%, transparent);
   background-image: var(--frost);
   border: 1px solid var(--border);
   border-radius: var(--r-btn);
@@ -224,10 +225,9 @@ kbd {
 .btn:not(:disabled):active { translate: 0 1px; box-shadow: inset 0 2px 5px var(--well-shadow); }
 .btn:disabled { opacity: .45; cursor: not-allowed; }
 .btn[data-variant="primary"] { --tint: var(--glass-cobalt); }
-.btn[data-variant="secondary"] { --tint: var(--glass-milk); }
 .btn[data-variant="danger"] { --tint: var(--glass-coral); }
-.btn:is([data-variant="primary"], [data-variant="secondary"], [data-variant="danger"]) { --btn-fg: var(--ink); background-color: color-mix(in oklab, var(--tint) 88%, transparent); }
-.btn[data-variant="ghost"] { background-color: transparent; background-image: none; border-color: transparent; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.btn[data-variant="ghost"] { --tint: inherit; --btn-fg: var(--ink, var(--text)); background-color: transparent; background-image: none; border-color: transparent; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.btn[data-variant="ghost"]::before { display: none; }
 .btn[data-variant="ghost"]:not(:disabled):hover { background-color: var(--surface-2); }
 .btn[data-size="sm"] { min-height: 34px; padding: 0 12px; font-size: var(--fs-s); }
 .btn[data-icon] { width: 42px; padding: 0; }
@@ -256,16 +256,18 @@ kbd {
   font: inherit;
   font-size: var(--fs-s);
   font-weight: 700;
-  color: var(--text);
-  background-color: var(--well);
-  border: 1px solid var(--control-border);
+  --tint: var(--glass-milk);
+  color: var(--ink);
+  background-color: color-mix(in oklab, var(--tint) 88%, transparent);
+  border: 1px solid var(--border);
   border-radius: var(--r-btn);
+  box-shadow: inset 0 1px 0 var(--border);
   cursor: pointer;
   transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease), translate .12s var(--ease);
 }
-.chip:not([aria-pressed="true"]):hover { background-color: var(--surface-2); }
+.chip:hover { background-color: color-mix(in oklab, var(--tint) 72%, transparent); }
 .chip:active { translate: 0 1px; }
-.chip[aria-pressed="true"] { color: var(--on-accent); background-color: color-mix(in oklab, var(--accent) 88%, transparent); border-color: transparent; }
+.chip[aria-pressed="true"] { --tint: var(--glass-cobalt); }
 .chip .icon { width: 14px; height: 14px; }
 .chip > button {
   display: inline-grid;
@@ -279,7 +281,7 @@ kbd {
   border: 0;
   border-radius: 50%;
   cursor: pointer;
-  opacity: .65;
+  opacity: .7;
   transition: opacity var(--dur) var(--ease), background-color var(--dur) var(--ease);
 }
 .chip > button:hover { opacity: 1; background-color: var(--surface-2); }
@@ -331,54 +333,53 @@ kbd {
 .field > label, .field > .label { font-size: var(--fs-s); font-weight: 700; }
 .field .optional { margin-left: 6px; font-weight: var(--fw-body); color: var(--text-muted); }
 .hint { font-size: var(--fs-xs); color: var(--text-muted); }
-.field[data-invalid] .input { border-color: var(--danger); }
+.field[data-invalid] .input, .input[aria-invalid="true"] { border-color: var(--danger); }
 .field[data-invalid] .hint { color: var(--danger); }
 .input {
+  --tint: var(--glass-milk);
   width: 100%;
   min-height: 42px;
   padding: 8px 12px;
   font: inherit;
-  color: var(--text);
+  color: var(--ink);
   background-color: var(--field);
-  border: 1px solid var(--control-border);
+  background-image: var(--frost);
+  border: 1px solid transparent;
   border-radius: var(--r-field);
-  box-shadow: inset 0 1px 2px var(--well-shadow);
+  box-shadow: inset 0 1px 0 var(--border), 0 8px 18px -12px var(--shadow-c);
   -webkit-backdrop-filter: blur(16px) saturate(1.2);
   backdrop-filter: blur(16px) saturate(1.2);
-  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  transition: border-color var(--dur) var(--ease), background-color var(--dur) var(--ease);
 }
-.input::placeholder { color: color-mix(in oklab, var(--text-muted) 75%, transparent); }
-.input:focus, .input:focus-visible {
-  outline: none;
-  border-color: var(--focus);
-  box-shadow: inset 0 1px 2px var(--well-shadow), var(--focus-ring);
-}
+.input::placeholder { color: color-mix(in oklab, var(--ink) 70%, transparent); }
+.input:hover:not(:focus, :disabled) { background-color: color-mix(in oklab, var(--tint) 74%, transparent); }
+.input:focus, .input:focus-visible { outline: none; background-color: var(--glass-milk); }
 .input:disabled { opacity: .5; cursor: not-allowed; }
-.field[data-invalid] .input:focus { box-shadow: inset 0 1px 2px var(--well-shadow), 0 0 0 4px color-mix(in oklab, var(--danger) 20%, transparent); }
 textarea.input { min-height: 96px; resize: vertical; line-height: 1.6; }
-.input::-webkit-calendar-picker-indicator { opacity: .6; cursor: pointer; }
-.input-affix { position: relative; }
-.input-affix > :is(span, .icon) { position: absolute; left: 12px; top: 50%; translate: 0 -50%; color: var(--text-muted); pointer-events: none; }
+.input::-webkit-calendar-picker-indicator { cursor: pointer; background: color-mix(in oklab, var(--ink) 70%, transparent); -webkit-mask: var(--calendar-icon) center / 16px no-repeat; mask: var(--calendar-icon) center / 16px no-repeat; }
+.input-affix { --tint: var(--glass-milk); position: relative; }
+.input-affix > :is(span, .icon) { position: absolute; left: 12px; top: 50%; translate: 0 -50%; color: color-mix(in oklab, var(--ink) 82%, transparent); pointer-events: none; }
+.input-affix > .icon { color: color-mix(in oklab, var(--ink) 70%, transparent); }
 .input-affix > .input { padding-left: 38px; }
 .input-affix > span + .input { padding-left: 30px; font-variant-numeric: tabular-nums; }
 
 select.input {
   appearance: none;
   padding-right: 40px;
-  background-image: var(--chevron-bg);
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  background-size: 16px;
+  background-image: var(--chevron-bg), var(--frost);
+  background-repeat: no-repeat, repeat;
+  background-position: right 12px center, 0 0;
+  background-size: 16px, auto;
   cursor: pointer;
 }
 @supports (appearance: base-select) {
   select.input, select.input::picker(select) { appearance: base-select; }
-  select.input { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); padding-right: 12px; background-image: none; }
+  select.input { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); padding-right: 12px; background: var(--field) var(--frost); }
   select.input::picker-icon {
     content: "";
     width: 16px;
     height: 16px;
-    background-color: var(--text-muted);
+    background-color: color-mix(in oklab, var(--ink) 70%, transparent);
     -webkit-mask: var(--chevron-icon) center / contain no-repeat;
     mask: var(--chevron-icon) center / contain no-repeat;
     transition: rotate .4s var(--spring);
@@ -459,7 +460,7 @@ select.input {
 .check input[type="checkbox"]::after {
   width: 14px;
   height: 14px;
-  background-color: rgba(255,255,255,.95);
+  background-color: var(--on-accent);
   -webkit-mask: var(--check-icon) center / contain no-repeat;
   mask: var(--check-icon) center / contain no-repeat;
   clip-path: inset(0 100% 0 0);
@@ -476,7 +477,7 @@ select.input {
   scale: .3;
   transition: opacity .15s var(--ease), scale var(--dur-move) var(--spring);
 }
-.check input[type="radio"]:checked::after { opacity: 1; scale: 1; }
+.check input[type="radio"]:checked::after { opacity: 1; scale: 1; background-color: var(--on-accent); }
 
 .switch { display: inline-flex; align-items: center; gap: var(--space-3); cursor: pointer; font-size: 14px; }
 .switch input {
@@ -571,6 +572,8 @@ select.input {
 .range:active::-moz-range-thumb { scale: 1.35; background-color: rgba(255,255,255,.16); box-shadow: var(--lens); }
 .range:focus-visible { outline: none; }
 .range:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 4px color-mix(in oklab, var(--focus) 30%, transparent), 0 2px 6px var(--shadow-c); }
+.range:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 4px color-mix(in oklab, var(--focus) 30%, transparent), 0 2px 6px var(--shadow-c); }
+:is(.check, .switch) input:disabled, .range:disabled { opacity: .45; cursor: not-allowed; }
 
 .dropzone {
   position: relative;
@@ -580,16 +583,20 @@ select.input {
   padding: var(--space-5) var(--space-4);
   text-align: center;
   font-size: 14px;
-  background-color: var(--well);
-  border: 1.5px dashed var(--control-border);
+  --tint: var(--glass-milk);
+  color: var(--ink);
+  background-color: color-mix(in oklab, var(--tint) 80%, transparent);
+  background-image: var(--frost);
+  border: 1.5px dashed color-mix(in oklab, var(--ink) 30%, transparent);
   border-radius: var(--r-card);
   cursor: pointer;
   transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease);
 }
-.dropzone .icon { width: 24px; height: 24px; color: var(--text-muted); }
+.dropzone .icon { width: 24px; height: 24px; color: color-mix(in oklab, var(--ink) 70%, transparent); }
 .dropzone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
-.dropzone:hover { background-color: var(--surface-2); }
-.dropzone[data-over] { border-color: var(--accent); background-color: color-mix(in oklab, var(--accent) 8%, var(--well)); }
+.dropzone:hover { background-color: color-mix(in oklab, var(--tint) 62%, transparent); background-image: none; }
+.dropzone .muted { color: color-mix(in oklab, var(--ink) 82%, transparent); }
+.dropzone[data-over] { --tint: var(--glass-cobalt); border-color: var(--accent); }
 .dropzone:has(input:focus-visible) { outline: 2px solid var(--focus); outline-offset: 3px; }
 
 .composer {
@@ -607,9 +614,7 @@ select.input {
   backdrop-filter: blur(16px) saturate(1.2);
 }
 .composer > input { flex: 1; min-width: 0; padding: 6px; font: inherit; color: var(--ink); background: none; border: 0; outline: none; }
-.composer > input::placeholder { color: color-mix(in oklab, var(--ink) 66%, transparent); }
-.composer .btn[data-variant="ghost"] { --btn-fg: var(--ink); }
-.composer .btn[data-variant="ghost"]:not(:disabled):hover { background-color: transparent; }
+.composer > input::placeholder { color: color-mix(in oklab, var(--ink) 70%, transparent); }
 
 /* ---------- navigation ---------- */
 .tabs {
@@ -622,6 +627,7 @@ select.input {
   width: fit-content;
   max-width: 100%;
   padding: 4px;
+  color: var(--ink);
   background-color: color-mix(in oklab, var(--tint) 85%, transparent);
   background-image: var(--frost);
   border-radius: var(--r-btn);
@@ -652,7 +658,7 @@ select.input {
   font: inherit;
   font-size: 14px;
   font-weight: 700;
-  color: color-mix(in oklab, var(--ink) 76%, transparent);
+  color: color-mix(in oklab, var(--ink) 82%, transparent);
   background: none;
   border: 0;
   border-radius: var(--r-btn);
@@ -722,7 +728,7 @@ select.input {
 .page-gap { min-width: 24px; text-align: center; color: var(--text-muted); }
 
 /* ---------- data display ---------- */
-[data-tone] { --tone: var(--text-muted); }
+.badge, [data-tone] { --tone: var(--text-muted); }
 [data-tone="success"] { --tone: var(--success); }
 [data-tone="warning"] { --tone: var(--warning); }
 [data-tone="danger"] { --tone: var(--danger); }
@@ -801,11 +807,12 @@ select.input {
   font-weight: 700;
   line-height: 1.4;
   white-space: nowrap;
-  color: var(--tooltip-fg);
-  background-color: var(--tooltip-bg);
+  --tint: var(--glass-sea);
+  color: var(--ink);
+  background-color: color-mix(in oklab, var(--tint) 94%, transparent);
   background-image: var(--frost);
   border-radius: var(--r-badge);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.22), inset 0 0 0 1px rgba(255,255,255,.10), 0 6px 14px -6px var(--shadow-c);
+  box-shadow: inset 0 1px 0 var(--border), 0 6px 14px -6px var(--shadow-c);
   -webkit-backdrop-filter: blur(10px) saturate(1.3);
   backdrop-filter: blur(10px) saturate(1.3);
   translate: -50% 4px;
@@ -946,12 +953,13 @@ select.input {
   padding: 10px 10px 10px 18px;
   font-size: 14px;
   font-weight: 700;
-  color: var(--text);
-  background-color: var(--surface);
+  --tint: var(--glass-milk);
+  color: var(--ink);
+  background-color: color-mix(in oklab, var(--tint) 90%, transparent);
   background-image: var(--frost);
   border: 1px solid var(--border);
   border-radius: var(--r-btn);
-  box-shadow: var(--shadow-pop);
+  box-shadow: inset 0 1px 0 var(--border), var(--shadow-pop);
   -webkit-backdrop-filter: blur(16px) saturate(1.2);
   backdrop-filter: blur(16px) saturate(1.2);
   translate: -50% 12px;
@@ -965,9 +973,11 @@ select.input {
 .empty-mark { width: 44px; height: 44px; border: 2px dashed var(--control-border); border-radius: var(--r-card); }
 
 @media (prefers-reduced-transparency: reduce) {
-  :root { --surface: var(--surface-solid); --surface-2: light-dark(#D8E6E1, #17323A); --well: var(--surface-2); --tooltip-bg: light-dark(#164240, #305E60); --surface-pop: var(--surface-solid); }
+  :root { --surface: var(--surface-solid); --surface-2: light-dark(#D8E6E1, #17323A); --well: var(--surface-2); --surface-pop: var(--surface-solid); }
   .card, .btn, .input, .tabs, .composer, .toast, .menu, .dialog, .sheet, [data-tooltip]::after { -webkit-backdrop-filter: none; backdrop-filter: none; }
   select.input::picker(select) { -webkit-backdrop-filter: none; backdrop-filter: none; }
+  :root { --field: var(--glass-milk); }
+  .btn:not([data-variant="ghost"]), .chip, .tabs, .composer, .toast, .dropzone, [data-tooltip]::after { background-color: var(--tint); }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: 0s !important; animation: none !important; }

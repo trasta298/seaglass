@@ -7,25 +7,24 @@ Values live only in `seaglass.css`; this file lists names and when to use them. 
 | Token | Use for |
 |---|---|
 | `--bg`, `--bg-image` | Page background (shoreline gradient). Set on `body` already. |
-| `--surface` | Frosted glass: cards, buttons, toasts |
+| `--surface` | Neutral frosted glass: cards |
 | `--surface-solid` | Opaque fallback of `--surface` |
 | `--surface-pop` | Floating glass: menus, select picker, dialogs, sheets |
 | `--surface-2` | Water film: hover on bare items, skeleton |
 | `--surface-raised` | Raised white glass: current tab / nav item / page |
-| `--well`, `--well-shadow` | Recessed tracks: unchecked check/switch, chip, slider rail |
-| `--field` | Input background: pale sea-green glass, so fields read as their own material |
+| `--well`, `--well-shadow` | Recessed tracks: unchecked check/switch, slider rail, inline code, `kbd` |
+| `--field` | Input background: milky sea-green glass (from `--glass-milk`). Inputs float like the tabs, with no outline |
 | `--knob` | Glass bead: switch knob, radio bead, slider thumb |
 | `--lens` | Shadow stack for the pressed lens state |
 | `--border` | Glass edge |
-| `--control-border` | Border of form controls |
+| `--control-border` | Border of checkbox, radio, switch, `kbd`, empty mark |
 | `--divider` | Hairlines between rows |
 | `--text`, `--text-muted` | Body text, secondary text |
-| `--accent`, `--on-accent` | Selected control state and links (checked check/switch, pressed chip, slider fill) |
+| `--accent`, `--on-accent` | Selected state of small controls and links (checked check/radio/switch, slider fill, select checkmark, drag-over dropzone border); `--on-accent` is the check mark and radio bead on it |
 | `--danger` | Failures and destructive text (invalid fields, danger menu items, callouts) |
 | `--success`, `--warning`, `--info` | Status (badges, callouts, stat deltas) via `data-tone` |
 | `--progress-c` | Progress bars, spinners |
-| `--focus`, `--focus-ring` | Focus indication (sea green) |
-| `--tooltip-bg`, `--tooltip-fg` | Tooltips |
+| `--focus` | Focus outline for keyboard navigation (sea green) |
 | `--scrim` | Dialog backdrop |
 | `--shadow-c`, `--shadow-card`, `--shadow-pop` | Depth for cards and floating layers |
 
@@ -35,15 +34,17 @@ Floating controls are pieces of tinted glass. Each sets `--tint`; `--ink` (a dee
 
 | Token | Used by |
 |---|---|
-| `--glass-cobalt` | Primary buttons (the action color, as glass) |
-| `--glass-milk` | Secondary buttons, `.composer` |
-| `--glass-sea` | `.tabs` |
+| `--glass-cobalt` | Primary buttons, pressed chips (the action color, as glass) |
+| `--glass-milk` | Default and secondary buttons, chips, inputs and selects (via `--field`), `.input-affix`, `.composer`, dropzone, toasts |
+| `--glass-sea` | `.tabs`, tooltips |
 | `--glass-coral` | Danger buttons |
+
+`--ink` keeps the glass's hue at low lightness (deep navy on cobalt, deep green on sea, deep red-brown on coral). On tinted glass, text uses `--ink`, secondary text 82% of it, icons and placeholders 70%; never `--text-muted`. Ghost buttons take the ink of the glass they sit on, or `--text` on neutral panes.
 
 Don't put `--glass-*` on cards or other large panes; they stay neutral frosted glass.
 
-`data-tone="success|warning|danger|info"` sets `--tone` for `.badge`, `.callout`, `.stat-delta` and `.menu-item`.
-`data-glass="aqua|olive|amber|lavender"` colors `.avatar`; no attribute means white glass.
+`data-tone="success|warning|danger|info"` sets `--tone` for `.badge`, `.callout` and `.stat-delta`; `.menu-item[data-tone="danger"]` uses `--danger`.
+`data-glass="aqua|olive|amber|lavender"` colors `.avatar`; no attribute means neutral grey glass.
 
 ## Shape
 

@@ -36,7 +36,7 @@ Icons are inline SVG with `class="icon"` (24×24 viewBox, stroke-based, `aria-hi
 
 `data-loading` hides the label and shows a spinner; keep the label text for screen readers.
 
-Primary, secondary and danger buttons are tinted glass (cobalt, milky sea green, coral) with text in a deep shade of the same color. Ghost buttons have no glass until hovered.
+Primary, secondary (also the default with no variant) and danger buttons are tinted glass (cobalt, milky sea green, coral) with text in a deep shade of the same color. Ghost buttons have no glass; their text takes the ink of the glass they sit on (for example inside `.composer` or `.toast`).
 
 ## Menu
 

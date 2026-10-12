@@ -4,47 +4,62 @@ Values live only in `seaglass.css`; this file lists names and when to use them. 
 
 ## Color
 
-| Token | Use for |
-|---|---|
-| `--bg`, `--bg-image` | Page background (shoreline gradient). Set on `body` already. |
-| `--surface` | Neutral frosted glass: cards |
-| `--surface-solid` | Opaque fallback of `--surface` |
-| `--surface-pop` | Floating glass: menus, select picker, dialogs, sheets |
-| `--surface-2` | Water film: hover on bare items, skeleton |
-| `--surface-raised` | Raised white glass: current tab / nav item / page |
-| `--well`, `--well-shadow` | Recessed tracks: unchecked check/switch, slider rail, inline code, `kbd` |
-| `--field` | Input background: milky sea-green glass (from `--glass-milk`). Inputs float like the tabs, with no outline |
-| `--knob` | Glass bead: switch knob, radio bead, slider thumb |
-| `--lens` | Shadow stack for the pressed lens state |
-| `--border` | Glass edge |
-| `--control-border` | Border of checkbox, radio, switch, `kbd`, empty mark |
-| `--divider` | Hairlines between rows |
-| `--text`, `--text-muted` | Body text, secondary text |
-| `--accent`, `--on-accent` | Selected state of small controls and links (checked check/radio/switch, slider fill, select checkmark, drag-over dropzone border); `--on-accent` is the check mark and radio bead on it |
-| `--danger` | Failures and destructive text (invalid fields, danger menu items, callouts) |
-| `--success`, `--warning`, `--info` | Status (badges, callouts, stat deltas) via `data-tone` |
-| `--progress-c` | Progress bars, spinners |
-| `--focus` | Focus outline for keyboard navigation (sea green) |
-| `--scrim` | Dialog backdrop |
-| `--shadow-c`, `--shadow-card`, `--shadow-pop` | Depth for cards and floating layers |
+Every color is one of seven glass hues (plus `--sand` for the page) in one of a few roles. Never write a raw color; if a need isn't covered, pick a hue and a role and ask before adding a token.
 
-### Tinted glass
+### Hues
 
-Floating controls are pieces of tinted glass. Each sets `--tint`; `--ink` (a deep shade of the tint) is computed for text on it.
+Each is a single OKLCH value; roles derive from it with relative color syntax, so light and dark keep the same relationships.
+
+| Hue | Beach glass | Roles it plays |
+|---|---|---|
+| `--sand` | Sand | Page background |
+| `--stone` | Grey glass | Text, neutral panes, shadows |
+| `--sea` | Sea green (the most common) | Water film, edges, success, focus, milk and sea glass |
+| `--aqua` | Aqua | Info and progress (shifted toward blue), avatar |
+| `--amber` | Brown bottle glass | Warning, avatar |
+| `--lavender` | Sun-purpled glass | Avatar only |
+| `--cobalt` | Cobalt (rare) | Actions and selected state |
+| `--coral` | Red (rarest) | Danger only |
+
+### Roles
+
+**Solid** — marks, status text, links. `--accent` (cobalt), `--success` (sea), `--warning` (amber), `--danger` (coral), `--info` (aqua), `--progress-c` (= info), `--focus` (= success). `--on-accent` is the check mark and radio bead on `--accent`.
+
+**Glass** — small floating pieces. Each sets `--tint` to one of these; `--ink` is computed from it.
 
 | Token | Used by |
 |---|---|
-| `--glass-cobalt` | Primary buttons, pressed chips (the action color, as glass) |
+| `--glass-cobalt` | Primary buttons, pressed chips |
 | `--glass-milk` | Default and secondary buttons, chips, inputs and selects (via `--field`), `.input-affix`, `.composer`, dropzone, toasts |
-| `--glass-sea` | `.tabs`, tooltips |
+| `--glass-sea` | `.tabs`, tooltips, `.avatar[data-glass="sea"]` |
 | `--glass-coral` | Danger buttons |
+| `--glass-aqua`, `--glass-amber`, `--glass-lavender` | Avatars |
+| `--glass-stone` | Avatar with no `data-glass` |
+| `--field` | Input and select background: `--glass-milk` at 86% |
 
-`--ink` keeps the glass's hue at low lightness (deep navy on cobalt, deep green on sea, deep red-brown on coral). On tinted glass, text uses `--ink`, secondary text 82% of it, icons and placeholders 70%; never `--text-muted`. Ghost buttons take the ink of the glass they sit on, or `--text` on neutral panes.
+`--ink` keeps the glass's hue at low lightness (deep navy on cobalt, deep green on sea, deep red-brown on coral). On tinted glass, text uses `--ink`, secondary text 82% of it, icons and placeholders 70%; never `--text-muted`. Ghost buttons take the ink of the glass they sit on, or `--text` on neutral panes. Don't put `--glass-*` on cards or other large panes.
 
-Don't put `--glass-*` on cards or other large panes; they stay neutral frosted glass.
+**Neutral** — panes, text and light.
 
-`data-tone="success|warning|danger|info"` sets `--tone` for `.badge`, `.callout` and `.stat-delta`; `.menu-item[data-tone="danger"]` uses `--danger`.
-`data-glass="aqua|olive|amber|lavender"` colors `.avatar`; no attribute means neutral grey glass.
+| Token | Use for |
+|---|---|
+| `--bg`, `--bg-image` | Page background (shoreline gradient). Set on `body` already. |
+| `--text`, `--text-muted` | Body text, secondary text on neutral panes |
+| `--surface`, `--surface-solid` | Cards (frosted / opaque) |
+| `--surface-pop` | Menus, select picker, dialogs, sheets |
+| `--surface-raised` | Raised white glass: current tab / nav item / page. Inside tabs it works like a segmented control: the raised piece and full-strength ink mark the selection |
+| `--surface-2`, `--surface-2-solid` | Water film: hover on bare items, skeleton (solid for reduced transparency) |
+| `--well`, `--well-shadow` | Recessed tracks: unchecked check/switch, slider rail, inline code, `kbd` |
+| `--knob` | Glass bead: switch knob, slider thumb |
+| `--border` | Edge light on glass |
+| `--control-border` | Border of checkbox, radio, switch, `kbd`, empty mark |
+| `--divider` | Hairlines between rows |
+| `--sheen` | The wet sheen on hover and in skeletons |
+| `--lens`, `--lens-fill` | Pressed lens state |
+| `--shadow-c`, `--shadow-card`, `--shadow-pop`, `--scrim` | Depth and dialog backdrop |
+
+`data-tone="success|warning|danger|info"` sets `--tone` for `.badge`, `.callout` and `.stat-delta` (any other value, e.g. `neutral`, falls back to `--text-muted`; a callout without a tone is info); `.menu-item[data-tone="danger"]` uses `--danger`.
+`data-glass="aqua|sea|amber|lavender"` colors `.avatar`; no attribute means grey glass.
 
 ## Shape
 

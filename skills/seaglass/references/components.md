@@ -188,7 +188,7 @@ Works for real tabs (`role="tab"` + `aria-selected`) and segmented buttons (`ari
 
 <ul class="list">
   <li>
-    <span class="avatar" data-glass="olive">み</span>
+    <span class="avatar" data-glass="sea">み</span>
     <div><strong>民宿 なかゆくい</strong><span class="meta">みおが支払い</span></div>
     <span class="amount">¥64,000</span>
   </li>

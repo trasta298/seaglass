@@ -17,53 +17,76 @@
   --ease: cubic-bezier(.3, .7, .2, 1);
   --spring: linear(0, .08 4%, .3 10%, .62 18%, .86 27%, .99 36%, 1.03 44%, 1.025 52%, 1.008 64%, 1 80%, 1);
 
-  /* Shoreline: shallow water at the top fading into sand, with a few faint glass shards. */
-  --bg: light-dark(#E4DFD4, #08141A);
-  --bg-image:
-    radial-gradient(130% 55% at 50% -12%, light-dark(rgba(150,205,196,.38), rgba(90,150,150,.06)), transparent 62%),
-    radial-gradient(16% 12% at 10% 70%, light-dark(rgba(122,190,170,.14), rgba(122,190,170,.025)), transparent 70%),
-    radial-gradient(12% 10% at 88% 40%, light-dark(rgba(84,120,200,.10), rgba(110,140,220,.025)), transparent 70%),
-    radial-gradient(14% 10% at 72% 90%, light-dark(rgba(176,128,70,.12), rgba(176,128,70,.02)), transparent 70%),
-    linear-gradient(180deg, light-dark(#DCE5E1, #0A181D) 0%, light-dark(#E4DFD4, #08141A) 45%, light-dark(#E8E1D4, #091417) 100%);
-  --surface: light-dark(rgba(244,250,248,.52), rgba(12,36,42,.80));
-  --surface-solid: light-dark(#EFF4F1, #0F262C);
-  --surface-2: light-dark(rgba(190,222,213,.55), rgba(150,215,205,.10));
-  --surface-pop: light-dark(rgba(239,244,241,.84), rgba(14,38,44,.90));
-  --surface-raised: light-dark(rgba(255,255,255,.72), rgba(170,225,215,.16));
-  --well: light-dark(rgba(255,255,255,.45), rgba(150,215,205,.09));
-  --well-shadow: light-dark(rgba(26,53,55,.14), rgba(0,0,0,.4));
-  --knob: light-dark(rgba(255,255,255,.94), rgba(236,251,248,.94));
-  /* Tinted glass for floating controls; text on them uses --ink, a deep shade of the same glass. */
-  --glass-cobalt: light-dark(#B3C4F6, #34509E);
-  --glass-sea: light-dark(#BFE2D5, #2B5B55);
-  --glass-milk: light-dark(#E2EDE8, #34494C);
-  --glass-coral: light-dark(#F3C2BA, #7E3530);
+  /* Seven glass hues plus sand, one per kind of glass found on the beach. Every color below is one of them in a role. */
+  --sand: oklch(.89 .02 85);
+  --stone: oklch(.42 .03 200);
+  --sea: oklch(.52 .09 165);
+  --aqua: oklch(.52 .1 225);
+  --amber: oklch(.55 .11 70);
+  --lavender: oklch(.53 .11 295);
+  --cobalt: oklch(.46 .14 265);
+  --coral: oklch(.52 .16 25);
+
+  /* Role: solid. Marks, status text and links; the rarer the hue, the more it matters. */
+  --accent: light-dark(var(--cobalt), oklch(from var(--cobalt) .80 calc(c * .7) h));
+  --on-accent: light-dark(oklch(1 0 0), oklch(from var(--cobalt) .30 c h));
+  --success: light-dark(oklch(from var(--sea) .48 c h), oklch(from var(--sea) .82 calc(c * .8) h));
+  --warning: light-dark(oklch(from var(--amber) .5 c h), oklch(from var(--amber) .84 calc(c * .8) h));
+  --danger: light-dark(var(--coral), oklch(from var(--coral) .78 calc(c * .7) h));
+  /* Info leans blue so it never reads as success next to it. */
+  --info: light-dark(oklch(from var(--aqua) .49 c 245), oklch(from var(--aqua) .8 calc(c * .85) 245));
+  --progress-c: var(--info);
+  --focus: var(--success);
+
+  /* Role: glass. Small floating pieces; text on them uses --ink (see base). */
+  --glass-cobalt: light-dark(oklch(from var(--cobalt) .84 calc(c * .62) h), oklch(from var(--cobalt) .44 calc(c * .75) h));
+  --glass-sea: light-dark(oklch(from var(--sea) .86 calc(c * .85) h), oklch(from var(--sea) .44 calc(c * 1.05) h));
+  --glass-aqua: light-dark(oklch(from var(--aqua) .85 calc(c * .85) h), oklch(from var(--aqua) .45 calc(c * 1.05) h));
+  --glass-amber: light-dark(oklch(from var(--amber) .86 calc(c * .6) h), oklch(from var(--amber) .46 calc(c * .75) h));
+  --glass-lavender: light-dark(oklch(from var(--lavender) .85 calc(c * .6) h), oklch(from var(--lavender) .45 calc(c * .75) h));
+  --glass-coral: light-dark(oklch(from var(--coral) .86 calc(c * .45) h), oklch(from var(--coral) .44 calc(c * .6) h));
+  --glass-milk: light-dark(oklch(from var(--sea) .93 .022 h), oklch(from var(--stone) .38 .025 h));
+  --glass-stone: light-dark(oklch(from var(--stone) .86 .015 h), oklch(from var(--stone) .44 .02 h));
   --field: color-mix(in oklab, var(--glass-milk) 86%, transparent);
-  --border: light-dark(rgba(255,255,255,.78), rgba(210,250,240,.18));
-  --control-border: light-dark(rgba(26,53,55,.30), rgba(210,250,240,.34));
-  --divider: light-dark(rgba(31,59,62,.12), rgba(210,250,240,.12));
-  --text: light-dark(#1A3537, #F1FAF8);
-  --text-muted: light-dark(#44605F, #BCD7D3);
-  --accent: light-dark(#2B4D9C, #9DB4F5);
-  --on-accent: light-dark(rgba(255,255,255,.95), #1B2F66);
-  --danger: light-dark(#AE3434, #F49A90);
-  --success: light-dark(#2B775D, #88D8B8);
-  --warning: light-dark(#8F5C0E, #EAC27A);
-  --info: light-dark(#28717F, #8AD0DD);
-  --progress-c: light-dark(#3A76B4, #9DB4F5);
-  --focus: light-dark(#2E7C6F, #8ED8C6);
-  --scrim: light-dark(rgba(26,53,55,.35), rgba(0,0,0,.6));
-  --shadow-c: light-dark(rgba(40,70,70,.24), rgba(0,0,0,.5));
+
+  /* Role: neutral. Stone-gray panes and text, sea-green water film, white edge light. */
+  --text: light-dark(oklch(from var(--stone) .31 .03 h), oklch(from var(--stone) .97 .01 h));
+  --text-muted: light-dark(oklch(from var(--stone) .46 .03 h), oklch(from var(--stone) .86 .025 h));
+  --surface: light-dark(oklch(from var(--stone) .97 .008 h / .55), oklch(from var(--stone) .25 .03 h / .8));
+  --surface-solid: light-dark(oklch(from var(--stone) .96 .008 h), oklch(from var(--stone) .25 .03 h));
+  --surface-pop: light-dark(oklch(from var(--stone) .96 .008 h / .86), oklch(from var(--stone) .26 .03 h / .9));
+  --surface-raised: light-dark(oklch(1 0 0 / .74), oklch(from var(--sea) .9 .04 h / .17));
+  --surface-2: light-dark(oklch(from var(--sea) .86 .045 h / .55), oklch(from var(--sea) .86 .05 h / .11));
+  --surface-2-solid: light-dark(oklch(from var(--sea) .9 .02 h), oklch(from var(--stone) .3 .03 h));
+  --well: light-dark(oklch(1 0 0 / .45), oklch(from var(--sea) .86 .05 h / .09));
+  --knob: light-dark(oklch(1 0 0 / .94), oklch(from var(--sea) .97 .015 h / .94));
+  --border: light-dark(oklch(1 0 0 / .8), oklch(from var(--sea) .95 .04 h / .2));
+  --control-border: light-dark(oklch(from var(--stone) .31 .03 h / .55), oklch(from var(--sea) .95 .04 h / .4));
+  --divider: light-dark(oklch(from var(--stone) .31 .03 h / .13), oklch(from var(--sea) .95 .04 h / .13));
+  --sheen: light-dark(oklch(1 0 0 / .7), oklch(1 0 0 / .25));
+  --lens-fill: oklch(1 0 0 / .16);
+  --shadow-c: light-dark(oklch(from var(--stone) .35 .04 h / .26), oklch(0 0 0 / .5));
+  --well-shadow: light-dark(oklch(from var(--stone) .35 .04 h / .15), oklch(0 0 0 / .4));
+  --scrim: light-dark(oklch(from var(--stone) .3 .03 h / .35), oklch(0 0 0 / .6));
   --shadow-card:
-    inset 0 1px 0 light-dark(rgba(255,255,255,.85), rgba(255,255,255,.08)),
-    inset 0 0 22px light-dark(rgba(255,255,255,.55), rgba(200,255,245,.04)),
+    inset 0 1px 0 var(--border),
+    inset 0 0 22px light-dark(oklch(1 0 0 / .5), oklch(from var(--sea) .9 .05 h / .04)),
     0 18px 40px -24px var(--shadow-c);
   --shadow-pop: 0 24px 50px -18px var(--shadow-c);
   --lens:
-    inset 0 0 0 1px rgba(255,255,255,.9),
-    inset 0 3px 8px rgba(255,255,255,.5),
-    inset 0 -3px 6px rgba(0,0,0,.08),
+    inset 0 0 0 1px oklch(1 0 0 / .9),
+    inset 0 3px 8px oklch(1 0 0 / .5),
+    inset 0 -3px 6px var(--well-shadow),
     0 6px 14px var(--shadow-c);
+
+  /* Shoreline: shallow water at the top fading into sand, with a few faint glass shards. */
+  --bg: light-dark(var(--sand), oklch(from var(--stone) .17 .022 h));
+  --bg-image:
+    radial-gradient(130% 55% at 50% -12%, light-dark(oklch(from var(--sea) .82 .05 h / .4), oklch(from var(--sea) .6 .05 h / .07)), transparent 62%),
+    radial-gradient(16% 12% at 10% 70%, light-dark(oklch(from var(--sea) .75 .06 h / .15), oklch(from var(--sea) .7 .06 h / .03)), transparent 70%),
+    radial-gradient(12% 10% at 88% 40%, light-dark(oklch(from var(--cobalt) .6 .1 h / .1), oklch(from var(--cobalt) .65 .1 h / .03)), transparent 70%),
+    radial-gradient(14% 10% at 72% 90%, light-dark(oklch(from var(--amber) .65 .08 h / .12), oklch(from var(--amber) .65 .08 h / .03)), transparent 70%),
+    linear-gradient(180deg, light-dark(oklch(from var(--sea) .91 .012 h), oklch(from var(--stone) .19 .022 h)) 0%, var(--bg) 45%, light-dark(oklch(from var(--sand) .9 .025 h), oklch(from var(--stone) .18 .02 h)) 100%);
 
   /* Tumbled corners stay point-symmetric: top-left matches bottom-right. */
   --r-card: 32px 24px 32px 24px / 26px 32px 26px 32px;
@@ -84,7 +107,7 @@
   --check-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.4 6.2 4.9 8.6 9.6 3.4' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   --chevron-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   --chevron-right-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 6l6 6-6 6' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  --chevron-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' fill='none' stroke='%236B7878' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  --chevron-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' fill='none' stroke='%235D7268' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 :root[data-theme="light"] { color-scheme: light; }
 :root[data-theme="dark"] { color-scheme: dark; }
@@ -92,17 +115,17 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --fw-body: 500; --frost: var(--frost-dark); --grain-o: .11;
-    --chevron-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' fill='none' stroke='%23A8B1B2' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    --chevron-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' fill='none' stroke='%23ACBABB' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   }
 }
 :root[data-theme="dark"] {
   --fw-body: 500; --frost: var(--frost-dark); --grain-o: .11;
-  --chevron-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' fill='none' stroke='%23A8B1B2' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  --chevron-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' fill='none' stroke='%23ACBABB' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
 /* ---------- base ---------- */
 /* Ink is a deep shade of the glass's own hue, so text and icons read as part of the piece. */
-.btn, .chip, .tabs, .composer, .input, .input-affix, .dropzone, .toast, [data-tooltip]::after { --ink: light-dark(oklch(from var(--tint) .34 calc(c * 1.6) h), oklch(from var(--tint) .94 calc(c * .5) h)); }
+.btn, .chip, .tabs, .composer, .input, .input-affix, .dropzone, .toast, .avatar, [data-tooltip]::after { --ink: light-dark(oklch(from var(--tint) .34 calc(c * 1.6) h), oklch(from var(--tint) .94 calc(c * .5) h)); }
 .card, .menu, .dialog, .sheet { --tint: initial; }
 @property --gap { syntax: "*"; inherits: false; }
 *, *::before, *::after { box-sizing: border-box; }
@@ -216,7 +239,7 @@ kbd {
   inset: 0;
   z-index: -1;
   border-radius: inherit;
-  background: linear-gradient(165deg, light-dark(rgba(255,255,255,.75), rgba(255,255,255,.26)) 0%, transparent 36%, transparent 70%, light-dark(rgba(255,255,255,.35), rgba(255,255,255,.10)) 100%);
+  background: linear-gradient(165deg, var(--sheen) 0%, transparent 36%, transparent 70%, color-mix(in oklab, var(--sheen) 50%, transparent) 100%);
   opacity: 0;
   transition: opacity .4s var(--ease);
 }
@@ -351,7 +374,7 @@ kbd {
   backdrop-filter: blur(16px) saturate(1.2);
   transition: border-color var(--dur) var(--ease), background-color var(--dur) var(--ease);
 }
-.input::placeholder { color: color-mix(in oklab, var(--ink) 70%, transparent); }
+.input::placeholder { color: color-mix(in oklab, var(--ink) 76%, transparent); }
 .input:hover:not(:focus, :disabled) { background-color: color-mix(in oklab, var(--tint) 74%, transparent); }
 .input:focus, .input:focus-visible { outline: none; background-color: var(--glass-milk); }
 .input:disabled { opacity: .5; cursor: not-allowed; }
@@ -438,11 +461,11 @@ select.input {
   background-color: color-mix(in oklab, var(--accent) 86%, transparent);
   background-image: var(--frost);
   border-color: transparent;
-  box-shadow: inset 0 -2px 3px rgba(0,0,0,.16), 0 3px 8px -3px color-mix(in oklab, var(--accent) 70%, transparent);
+  box-shadow: inset 0 -2px 3px var(--well-shadow), 0 3px 8px -3px color-mix(in oklab, var(--accent) 70%, transparent);
 }
 .check input:active {
   scale: 1.14;
-  background-color: rgba(255,255,255,.16);
+  background-color: var(--lens-fill);
   border-color: transparent;
   box-shadow: var(--lens);
   -webkit-backdrop-filter: saturate(1.8) brightness(1.08);
@@ -472,7 +495,7 @@ select.input {
   height: 10px;
   border-radius: 50%;
   background-color: var(--knob);
-  box-shadow: inset 0 -1px 2px rgba(26,53,55,.18), 0 1px 3px var(--shadow-c);
+  box-shadow: inset 0 -1px 2px var(--well-shadow), 0 1px 3px var(--shadow-c);
   opacity: 0;
   scale: .3;
   transition: opacity .15s var(--ease), scale var(--dur-move) var(--spring);
@@ -504,7 +527,7 @@ select.input {
   translate: 0 -50%;
   border-radius: 999px;
   background-color: var(--knob);
-  box-shadow: inset 0 -2px 3px rgba(26,53,55,.12), 0 2px 6px var(--shadow-c);
+  box-shadow: inset 0 -2px 3px var(--well-shadow), 0 2px 6px var(--shadow-c);
   transition: left var(--dur-move) var(--spring), width .3s var(--spring), height .3s var(--spring), background-color .3s var(--ease), box-shadow .3s var(--ease);
 }
 .switch input:hover:not(:checked) { background-color: var(--surface-2); }
@@ -513,7 +536,7 @@ select.input {
 .switch input:active::before {
   width: 32px;
   height: 30px;
-  background-color: rgba(255,255,255,.16);
+  background-color: var(--lens-fill);
   box-shadow: var(--lens);
   -webkit-backdrop-filter: saturate(1.8) brightness(1.08);
   backdrop-filter: saturate(1.8) brightness(1.08);
@@ -556,7 +579,7 @@ select.input {
   border: 0;
   border-radius: 50%;
   background-color: var(--knob);
-  box-shadow: inset 0 -2px 3px rgba(26,53,55,.12), 0 2px 6px var(--shadow-c);
+  box-shadow: inset 0 -2px 3px var(--well-shadow), 0 2px 6px var(--shadow-c);
   transition: scale .35s var(--spring), background-color .3s var(--ease), box-shadow .3s var(--ease);
 }
 .range::-moz-range-thumb {
@@ -565,11 +588,11 @@ select.input {
   border: 0;
   border-radius: 50%;
   background-color: var(--knob);
-  box-shadow: inset 0 -2px 3px rgba(26,53,55,.12), 0 2px 6px var(--shadow-c);
+  box-shadow: inset 0 -2px 3px var(--well-shadow), 0 2px 6px var(--shadow-c);
   transition: scale .35s var(--spring), background-color .3s var(--ease), box-shadow .3s var(--ease);
 }
-.range:active::-webkit-slider-thumb { scale: 1.35; background-color: rgba(255,255,255,.16); box-shadow: var(--lens); }
-.range:active::-moz-range-thumb { scale: 1.35; background-color: rgba(255,255,255,.16); box-shadow: var(--lens); }
+.range:active::-webkit-slider-thumb { scale: 1.35; background-color: var(--lens-fill); box-shadow: var(--lens); }
+.range:active::-moz-range-thumb { scale: 1.35; background-color: var(--lens-fill); box-shadow: var(--lens); }
 .range:focus-visible { outline: none; }
 .range:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 4px color-mix(in oklab, var(--focus) 30%, transparent), 0 2px 6px var(--shadow-c); }
 .range:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 4px color-mix(in oklab, var(--focus) 30%, transparent), 0 2px 6px var(--shadow-c); }
@@ -614,7 +637,7 @@ select.input {
   backdrop-filter: blur(16px) saturate(1.2);
 }
 .composer > input { flex: 1; min-width: 0; padding: 6px; font: inherit; color: var(--ink); background: none; border: 0; outline: none; }
-.composer > input::placeholder { color: color-mix(in oklab, var(--ink) 70%, transparent); }
+.composer > input::placeholder { color: color-mix(in oklab, var(--ink) 76%, transparent); }
 
 /* ---------- navigation ---------- */
 .tabs {
@@ -748,11 +771,11 @@ select.input {
   border-radius: var(--r-badge);
 }
 
-.avatar { --tone: var(--text-muted); }
-.avatar[data-glass="aqua"] { --tone: light-dark(#2F8FA6, #7CCFE0); }
-.avatar[data-glass="olive"] { --tone: light-dark(#6B8A2E, #B5D27A); }
-.avatar[data-glass="amber"] { --tone: light-dark(#A8701F, #E8B86A); }
-.avatar[data-glass="lavender"] { --tone: light-dark(#7A63AE, #C2B2EC); }
+.avatar { --tint: var(--glass-stone); }
+.avatar[data-glass="aqua"] { --tint: var(--glass-aqua); }
+.avatar[data-glass="sea"] { --tint: var(--glass-sea); }
+.avatar[data-glass="amber"] { --tint: var(--glass-amber); }
+.avatar[data-glass="lavender"] { --tint: var(--glass-lavender); }
 .avatar {
   display: inline-grid;
   place-items: center;
@@ -761,8 +784,8 @@ select.input {
   height: 34px;
   font-size: var(--fs-s);
   font-weight: 700;
-  color: light-dark(color-mix(in oklab, var(--tone), var(--text) 35%), color-mix(in oklab, var(--tone) 25%, #FFFFFF));
-  background-color: light-dark(color-mix(in oklab, var(--tone) 30%, var(--surface-solid)), color-mix(in oklab, var(--tone) 52%, #0E1E22));
+  color: var(--ink);
+  background-color: var(--tint);
   background-image: var(--frost);
   border: 1px solid var(--border);
   border-radius: 52% 48% 52% 48% / 48% 52% 48% 52%;
@@ -899,7 +922,7 @@ select.input {
   height: 14px;
   border-radius: var(--r-item);
   background-color: var(--surface-2);
-  background-image: linear-gradient(100deg, transparent 30%, light-dark(rgba(255,255,255,.55), rgba(255,255,255,.08)) 50%, transparent 70%);
+  background-image: linear-gradient(100deg, transparent 30%, color-mix(in oklab, var(--sheen) 60%, transparent) 50%, transparent 70%);
   background-size: 220% 100%;
   animation: sheen 1.8s ease-in-out infinite;
 }
@@ -973,7 +996,7 @@ select.input {
 .empty-mark { width: 44px; height: 44px; border: 2px dashed var(--control-border); border-radius: var(--r-card); }
 
 @media (prefers-reduced-transparency: reduce) {
-  :root { --surface: var(--surface-solid); --surface-2: light-dark(#D8E6E1, #17323A); --well: var(--surface-2); --surface-pop: var(--surface-solid); }
+  :root { --surface: var(--surface-solid); --surface-2: var(--surface-2-solid); --well: var(--surface-2); --surface-pop: var(--surface-solid); }
   .card, .btn, .input, .tabs, .composer, .toast, .menu, .dialog, .sheet, [data-tooltip]::after { -webkit-backdrop-filter: none; backdrop-filter: none; }
   select.input::picker(select) { -webkit-backdrop-filter: none; backdrop-filter: none; }
   :root { --field: var(--glass-milk); }

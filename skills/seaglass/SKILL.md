@@ -26,7 +26,7 @@ Every decision should be explainable by one of these. When a request conflicts w
 
 1. **Surfaces are frosted glass.** Cards, buttons, inputs, menus, dialogs and toasts blur what is behind them and carry a fine frost texture. While nothing is touched, draw no highlights or reflections; only edges may glow faintly.
 2. **Corners are tumbled pebbles.** Radii are slightly uneven but point-symmetric (top-left = bottom-right). Use the `--r-*` tokens; never write a single plain radius on a glass element. Boxes that hold running text (`.callout`, code blocks) use even corners (`--r-box`) for readability.
-3. **Rarity is importance.** Common beach colors (white, sea green, sand brown) are for surfaces and dividers. Rare cobalt is only for actions and selected control state: the primary button and pressed chips are cobalt glass (`--glass-cobalt`), and `--accent` marks checked checks/switches, slider fill, the select checkmark, a drag-over dropzone and links. The rarest, red (`--danger`), is only for destructive actions and failures. Location/selection in navigation (current tab, nav item, page) uses raised white glass (`--surface-raised`), not cobalt. Progress bars and standalone spinners use `--progress-c`; a loading button's spinner follows its ink. Focus uses sea green (`--focus`).
+3. **Rarity is importance.** Common beach colors (grey, white, sea green, sand) are for surfaces and dividers; every color is a hue in a role (see `references/tokens.md`). Rare cobalt is only for actions and selected control state: the primary button and pressed chips are cobalt glass (`--glass-cobalt`), and `--accent` marks checked checks/switches, slider fill, the select checkmark, a drag-over dropzone and links. The rarest, red (`--danger`), is only for destructive actions and failures. Location/selection in navigation (current tab, nav item, page) uses raised white glass (`--surface-raised`), not cobalt. Progress bars and standalone spinners use `--progress-c`; a loading button's spinner follows its ink. Focus uses sea green (`--focus`).
 4. **Touch makes it wet.** Hover makes glass clearer with a wet sheen; where there is no glass, a thin water film (`--surface-2`) appears. While pressed, knobs, beads and checks become a clear lens. Buttons sink 1px instead of scaling.
 
 ## Choosing components
@@ -60,9 +60,9 @@ Full markup for every component, with states: `references/components.md`. Token 
 
 - Don't write raw colors, radii, shadows or durations; use tokens. If a token is missing, ask before inventing one.
 - Don't use cobalt for decoration, headings, icons, avatars, or "current location". Don't use red for anything that isn't destructive or a failure.
-- Don't use `--success`/`--warning`/`--danger`/`--info` to tell people apart; avatars use `data-glass`.
+- Don't use `--success`/`--warning`/`--danger`/`--info` to tell people apart; avatars use `data-glass` (glass tints, never the solid status tokens).
 - Don't add glossy gradients, glows or reflections on resting elements.
-- Tinted glass (`--glass-*`) is only for small floating pieces: buttons, chips, tabs, inputs, the input bar, the dropzone, tooltips, toasts. Cards, menus, dialogs and sheets stay neutral. Text and icons on tinted glass use `--ink`, not `--text`/`--text-muted`.
+- Tinted glass (`--glass-*`) is only for small floating pieces: buttons, chips, tabs, inputs, the input bar, the dropzone, tooltips, toasts, avatars. Cards, menus, dialogs and sheets stay neutral. Text and icons on tinted glass use `--ink`, not `--text`/`--text-muted`.
 - Don't scale buttons on press, and don't add bouncy motion to things the user didn't touch. Motion answers an action.
 - Don't remove focus styles. Don't override `.input:focus` with a cobalt ring.
 - Don't nest frosted cards inside frosted cards; inside a card use `.divider`, `.list`, `.kv`, or `.callout`.

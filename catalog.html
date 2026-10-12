@@ -34,7 +34,7 @@
 .rules li { display: grid; grid-template-columns: 14px 1fr; gap: var(--space-3); align-items: baseline; }
 .rules li::before { content: ""; width: 12px; height: 12px; translate: 0 1px; border-radius: 60% 40% 60% 40% / 45% 55% 45% 55%; background-color: color-mix(in oklab, var(--success) 45%, transparent); }
 
-.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: var(--space-3); margin-top: var(--space-6); }
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); gap: var(--space-2); margin-top: var(--space-6); }
 .swatch { display: grid; gap: 6px; font-size: var(--fs-xs); }
 .swatch i { display: block; height: 52px; border: 1px solid var(--divider); border-radius: var(--r-field); background: var(--c); }
 .swatch b { font-weight: 700; font-size: var(--fs-s); }
@@ -99,7 +99,7 @@ fieldset.field legend { padding: 0; margin-bottom: 6px; font-size: var(--fs-s); 
         </div>
         <div class="card">
           <dl class="kv">
-            <dt>Gray tone</dt><dd>Between sand and sea blue</dd>
+            <dt>Gray tone</dt><dd>Blue-grey glass on sand</dd>
             <dt>Accent</dt><dd>Cobalt blue</dd>
             <dt>Typeface</dt><dd>Zen Maru Gothic</dd>
             <dt>Corners</dt><dd>Large, unevenly point-symmetric</dd>
@@ -117,9 +117,10 @@ fieldset.field legend { padding: 0; margin-bottom: 6px; font-size: var(--fs-s); 
         <div class="swatch"><i style="--c: var(--glass-milk)"></i><b>Milk glass</b><code>--glass-milk</code></div>
         <div class="swatch"><i style="--c: var(--glass-sea)"></i><b>Sea glass</b><code>--glass-sea</code></div>
         <div class="swatch"><i style="--c: var(--glass-coral)"></i><b>Coral glass</b><code>--glass-coral</code></div>
-        <div class="swatch"><i style="--c: var(--accent)"></i><b>Selected</b><code>--accent</code></div>
+        <div class="swatch"><i style="--c: var(--accent)"></i><b>Selected, links</b><code>--accent</code></div>
         <div class="swatch"><i style="--c: var(--success)"></i><b>Success</b><code>--success</code></div>
         <div class="swatch"><i style="--c: var(--warning)"></i><b>Warning</b><code>--warning</code></div>
+        <div class="swatch"><i style="--c: var(--info)"></i><b>Info</b><code>--info</code></div>
         <div class="swatch"><i style="--c: var(--danger)"></i><b>Danger</b><code>--danger</code></div>
       </div>
     </div>
@@ -142,7 +143,7 @@ fieldset.field legend { padding: 0; margin-bottom: 6px; font-size: var(--fs-s); 
         </div>
         <div class="avatar-group" aria-label="4 members">
           <span class="avatar" data-glass="aqua" title="Haruto">H</span>
-          <span class="avatar" data-glass="olive" title="Mio">M</span>
+          <span class="avatar" data-glass="sea" title="Mio">M</span>
           <span class="avatar" data-glass="amber" title="Sota">S</span>
           <span class="avatar" data-glass="lavender" title="Aya">A</span>
         </div>
@@ -166,7 +167,7 @@ fieldset.field legend { padding: 0; margin-bottom: 6px; font-size: var(--fs-s); 
           </div>
           <ul class="list">
             <li>
-              <span class="avatar" data-glass="olive">M</span>
+              <span class="avatar" data-glass="sea">M</span>
               <div><strong>Nakayukui guesthouse</strong><span class="meta">Paid by Mio, 3 nights</span></div>
               <span class="amount">¥64,000</span>
             </li>
@@ -579,7 +580,7 @@ fieldset.field legend { padding: 0; margin-bottom: 6px; font-size: var(--fs-s); 
           <header><h4>List</h4><code>.list</code></header>
           <ul class="list">
             <li>
-              <span class="avatar" data-glass="olive">M</span>
+              <span class="avatar" data-glass="sea">M</span>
               <div><strong>Mio</strong><span class="meta">Receives ¥34,150</span></div>
               <span class="badge" data-tone="warning">Unpaid</span>
             </li>
@@ -622,12 +623,12 @@ fieldset.field legend { padding: 0; margin-bottom: 6px; font-size: var(--fs-s); 
           </div>
           <div class="row" style="--gap: 12px">
             <span class="avatar" data-size="sm" data-glass="aqua">H</span>
-            <span class="avatar" data-glass="olive">M</span>
+            <span class="avatar" data-glass="sea">M</span>
             <span class="avatar" data-size="lg" data-glass="amber">S</span>
             <span class="avatar" data-glass="lavender">A</span>
             <span class="avatar">Y</span>
           </div>
-          <p class="note">Avatar colors come from glass you can find on the beach (<code>data-glass</code>: aqua, olive, amber, lavender; none means neutral grey). They stay separate from status colors.</p>
+          <p class="note">Avatar colors come from glass you can find on the beach (<code>data-glass</code>: aqua, sea, amber, lavender; none means neutral grey). They use glass tints, never the solid status colors.</p>
           <div class="row">
             <span class="small muted">Exchange rate</span>
             <button type="button" class="btn" data-variant="ghost" data-icon data-size="sm" aria-label="About the exchange rate" data-tooltip="Rate as of Oct 11, 9:00">

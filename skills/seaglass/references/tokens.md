@@ -10,10 +10,11 @@ Values live only in `seaglass.css`; this file lists names and when to use them. 
 | `--surface` | Frosted glass: cards, buttons, toasts |
 | `--surface-solid` | Opaque fallback of `--surface` |
 | `--surface-pop` | Floating glass: menus, select picker, dialogs, sheets |
-| `--surface-2` | Water film: hover on bare items, tab track, skeleton |
+| `--surface-2` | Water film: hover on bare items, skeleton |
+| `--track` | Sea-green glass behind tabs and segmented controls |
 | `--surface-raised` | Raised white glass: current tab / nav item / page |
 | `--well`, `--well-shadow` | Recessed tracks: unchecked check/switch, chip, slider rail |
-| `--field` | Input background |
+| `--field` | Input background: pale sea-green glass, so fields read as their own material |
 | `--knob` | Glass bead: switch knob, radio bead, slider thumb |
 | `--lens` | Shadow stack for the pressed lens state |
 | `--border` | Glass edge |

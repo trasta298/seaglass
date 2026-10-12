@@ -165,7 +165,7 @@ kbd {
 /* ---------- surfaces ---------- */
 .card {
   position: relative;
-  padding: var(--space-5);
+  padding: 20px var(--space-5);
   background-color: var(--surface);
   background-image: var(--frost);
   border: 1px solid var(--border);
@@ -744,7 +744,7 @@ select.input {
 .avatar-group .avatar + .avatar { margin-left: -8px; }
 
 .list { margin: 0; padding: 0; list-style: none; }
-.list > li { display: flex; align-items: center; gap: var(--space-3); padding: 12px 0; border-bottom: 1px solid var(--divider); }
+.list > li { display: flex; align-items: center; gap: var(--space-3); padding: 10px 0; line-height: 1.5; border-bottom: 1px solid var(--divider); }
 .list > li:last-child { border-bottom: 0; }
 .list > li > div { flex: 1; min-width: 0; }
 .list .meta { display: block; font-size: var(--fs-s); color: var(--text-muted); }
@@ -759,7 +759,7 @@ select.input {
 .stat-delta { font-size: var(--fs-s); font-weight: 700; color: var(--tone); }
 
 .table-scroll { overflow-x: auto; }
-.table { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+.table { width: 100%; border-collapse: collapse; font-size: 14px; line-height: 1.5; font-variant-numeric: tabular-nums; }
 .table th, .table td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--divider); white-space: nowrap; }
 .table th { font-size: var(--fs-xs); font-weight: 700; color: var(--text-muted); }
 .table tbody tr { transition: background-color var(--dur) var(--ease); }

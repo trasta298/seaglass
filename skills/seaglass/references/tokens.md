@@ -23,7 +23,7 @@ Each is a single OKLCH value; roles derive from it with relative color syntax, s
 
 ### Roles
 
-**Solid** — marks, status text, links. `--accent` (cobalt), `--success` (sea), `--warning` (amber), `--danger` (coral), `--info` (aqua), `--progress-c` (= info), `--focus` (= success). `--on-accent` is the check mark and radio bead on `--accent`.
+**Solid** — marks, status text, links. `--accent` (cobalt), `--success` (sea), `--warning` (amber), `--danger` (coral), `--info` (aqua), `--progress-c` (= info), `--focus` (= success). `--accent-fill` is the softer cobalt for filled controls (checked check/radio/switch, slider fill); `--on-accent` is the check mark and radio bead on it. Progress bars soften their fill the same way in light mode.
 
 **Glass** — small floating pieces. Each sets `--tint` to one of these; `--ink` is computed from it.
 

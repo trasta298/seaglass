@@ -29,6 +29,7 @@
 
   /* Role: solid. Marks, status text and links; the rarer the hue, the more it matters. */
   --accent: light-dark(var(--cobalt), oklch(from var(--cobalt) .80 calc(c * .7) h));
+  --accent-fill: light-dark(oklch(from var(--cobalt) .62 calc(c * .75) h), var(--accent));
   --on-accent: light-dark(oklch(1 0 0), oklch(from var(--cobalt) .30 c h));
   --success: light-dark(oklch(from var(--sea) .48 c h), oklch(from var(--sea) .82 calc(c * .8) h));
   --warning: light-dark(oklch(from var(--amber) .5 c h), oklch(from var(--amber) .84 calc(c * .8) h));
@@ -457,10 +458,10 @@ select.input {
 .check input[type="radio"] { border-radius: 50%; }
 .check input:hover:not(:checked) { background-color: var(--surface-2); }
 .check input:checked {
-  background-color: color-mix(in oklab, var(--accent) 86%, transparent);
+  background-color: color-mix(in oklab, var(--accent-fill) 86%, transparent);
   background-image: var(--frost);
   border-color: transparent;
-  box-shadow: inset 0 -2px 3px var(--well-shadow), 0 3px 8px -3px color-mix(in oklab, var(--accent) 70%, transparent);
+  box-shadow: inset 0 -2px 3px var(--well-shadow), 0 3px 8px -3px color-mix(in oklab, var(--accent-fill) 70%, transparent);
 }
 .check input:active {
   scale: 1.14;
@@ -470,7 +471,7 @@ select.input {
   -webkit-backdrop-filter: saturate(1.25);
   backdrop-filter: saturate(1.25);
 }
-.check input:checked:active { background-color: color-mix(in oklab, var(--accent) 45%, transparent); }
+.check input:checked:active { background-color: color-mix(in oklab, var(--accent-fill) 45%, transparent); }
 .check input[data-moved]:checked { animation: tumble .5s var(--ease); }
 @keyframes tumble { 0% { rotate: -14deg; scale: .86; } 55% { rotate: 3deg; } 100% { rotate: 0deg; scale: 1; } }
 .check input::after {
@@ -530,7 +531,7 @@ select.input {
   transition: left var(--dur-move) var(--spring), width .3s var(--spring), height .3s var(--spring), background-color .3s var(--ease), box-shadow .3s var(--ease);
 }
 .switch input:hover:not(:checked) { background-color: var(--surface-2); }
-.switch input:checked { background-color: color-mix(in oklab, var(--accent) 86%, transparent); background-image: var(--frost); border-color: transparent; }
+.switch input:checked { background-color: color-mix(in oklab, var(--accent-fill) 86%, transparent); background-image: var(--frost); border-color: transparent; }
 .switch input:checked::before { left: calc(100% - 23px); }
 .switch input:active::before {
   width: 32px;
@@ -559,8 +560,8 @@ select.input {
   height: 8px;
   border-radius: 999px;
   background:
-    radial-gradient(circle at var(--end) 50%, var(--accent) 4px, transparent 4.5px),
-    linear-gradient(to right, var(--accent) var(--end), var(--well) 0);
+    radial-gradient(circle at var(--end) 50%, var(--accent-fill) 4px, transparent 4.5px),
+    linear-gradient(to right, var(--accent-fill) var(--end), var(--well) 0);
   box-shadow: inset 0 0 0 1px var(--divider);
 }
 .range::-moz-range-track {
@@ -569,7 +570,7 @@ select.input {
   background-color: var(--well);
   box-shadow: inset 0 0 0 1px var(--divider);
 }
-.range::-moz-range-progress { height: 8px; border-radius: 999px; background-color: var(--accent); }
+.range::-moz-range-progress { height: 8px; border-radius: 999px; background-color: var(--accent-fill); }
 .range::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 22px;
@@ -916,7 +917,7 @@ pre.code {
   width: calc(var(--v, 0) * 1%);
   height: 100%;
   border-radius: inherit;
-  background-color: var(--bar);
+  background-color: light-dark(oklch(from var(--bar) .62 calc(c * .85) h), var(--bar));
   transition: width .8s var(--ease), background-color .4s var(--ease);
 }
 .progress[aria-valuenow="100"] { --bar: var(--success); }

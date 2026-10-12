@@ -25,12 +25,12 @@
     radial-gradient(12% 10% at 88% 40%, light-dark(rgba(84,120,200,.10), rgba(110,140,220,.025)), transparent 70%),
     radial-gradient(14% 10% at 72% 90%, light-dark(rgba(176,128,70,.12), rgba(176,128,70,.02)), transparent 70%),
     linear-gradient(180deg, light-dark(#DCE5E1, #0A181D) 0%, light-dark(#E4DFD4, #08141A) 45%, light-dark(#E8E1D4, #091417) 100%);
-  --surface: light-dark(rgba(244,250,248,.52), rgba(18,52,60,.74));
-  --surface-solid: light-dark(#EFF4F1, #16353D);
-  --surface-2: light-dark(rgba(190,222,213,.55), rgba(150,215,205,.13));
-  --surface-pop: light-dark(rgba(239,244,241,.84), rgba(22,53,61,.86));
-  --surface-raised: light-dark(rgba(255,255,255,.72), rgba(170,225,215,.20));
-  --well: light-dark(rgba(255,255,255,.45), rgba(150,215,205,.12));
+  --surface: light-dark(rgba(244,250,248,.52), rgba(12,36,42,.80));
+  --surface-solid: light-dark(#EFF4F1, #0F262C);
+  --surface-2: light-dark(rgba(190,222,213,.55), rgba(150,215,205,.10));
+  --surface-pop: light-dark(rgba(239,244,241,.84), rgba(14,38,44,.90));
+  --surface-raised: light-dark(rgba(255,255,255,.72), rgba(170,225,215,.16));
+  --well: light-dark(rgba(255,255,255,.45), rgba(150,215,205,.09));
   --well-shadow: light-dark(rgba(26,53,55,.14), rgba(0,0,0,.4));
   --knob: light-dark(rgba(255,255,255,.94), rgba(236,251,248,.94));
   --field: light-dark(rgba(255,255,255,.48), rgba(3,20,24,.50));
@@ -47,7 +47,7 @@
   --success: light-dark(#2B775D, #88D8B8);
   --warning: light-dark(#8F5C0E, #EAC27A);
   --info: light-dark(#28717F, #8AD0DD);
-  --tooltip-bg: light-dark(rgba(22,66,64,.86), rgba(58,108,110,.90));
+  --tooltip-bg: light-dark(rgba(22,66,64,.86), rgba(48,94,96,.92));
   --tooltip-fg: #F1FAF8;
   --progress-c: light-dark(#3A76B4, #9DB4F5);
   --focus: light-dark(#2E7C6F, #8ED8C6);
@@ -76,7 +76,7 @@
   --r-item: 10px;
 
   --frost-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .28 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
-  --frost-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .17 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
+  --frost-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .13 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
   --frost: var(--frost-light);
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
   --grain-o: .12;
@@ -942,7 +942,7 @@ select.input {
 .empty-mark { width: 44px; height: 44px; border: 2px dashed var(--control-border); border-radius: var(--r-card); }
 
 @media (prefers-reduced-transparency: reduce) {
-  :root { --surface: var(--surface-solid); --surface-2: light-dark(#D8E6E1, #1D3D45); --well: var(--surface-2); --tooltip-bg: light-dark(#164240, #3A6C6E); --surface-pop: var(--surface-solid); }
+  :root { --surface: var(--surface-solid); --surface-2: light-dark(#D8E6E1, #17323A); --well: var(--surface-2); --tooltip-bg: light-dark(#164240, #305E60); --surface-pop: var(--surface-solid); }
   .card, .btn, .input, .tabs, .toast, .menu, .dialog, .sheet, [data-tooltip]::after { -webkit-backdrop-filter: none; backdrop-filter: none; }
   select.input::picker(select) { -webkit-backdrop-filter: none; backdrop-filter: none; }
 }

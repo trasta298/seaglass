@@ -11,7 +11,6 @@ Values live only in `seaglass.css`; this file lists names and when to use them. 
 | `--surface-solid` | Opaque fallback of `--surface` |
 | `--surface-pop` | Floating glass: menus, select picker, dialogs, sheets |
 | `--surface-2` | Water film: hover on bare items, skeleton |
-| `--track` | Sea-green glass behind tabs and segmented controls |
 | `--surface-raised` | Raised white glass: current tab / nav item / page |
 | `--well`, `--well-shadow` | Recessed tracks: unchecked check/switch, chip, slider rail |
 | `--field` | Input background: pale sea-green glass, so fields read as their own material |
@@ -21,14 +20,27 @@ Values live only in `seaglass.css`; this file lists names and when to use them. 
 | `--control-border` | Border of form controls |
 | `--divider` | Hairlines between rows |
 | `--text`, `--text-muted` | Body text, secondary text |
-| `--accent`, `--on-accent`, `--accent-edge` | Actions and selected control state only |
-| `--danger`, `--on-danger` | Destructive actions, failures |
+| `--accent`, `--on-accent` | Selected control state and links (checked check/switch, pressed chip, slider fill) |
+| `--danger` | Failures and destructive text (invalid fields, danger menu items, callouts) |
 | `--success`, `--warning`, `--info` | Status (badges, callouts, stat deltas) via `data-tone` |
 | `--progress-c` | Progress bars, spinners |
 | `--focus`, `--focus-ring` | Focus indication (sea green) |
 | `--tooltip-bg`, `--tooltip-fg` | Tooltips |
 | `--scrim` | Dialog backdrop |
 | `--shadow-c`, `--shadow-card`, `--shadow-pop` | Depth for cards and floating layers |
+
+### Tinted glass
+
+Floating controls are pieces of tinted glass. Each sets `--tint`; `--ink` (a deep shade of the tint) is computed for text on it.
+
+| Token | Used by |
+|---|---|
+| `--glass-cobalt` | Primary buttons (the action color, as glass) |
+| `--glass-milk` | Secondary buttons, `.composer` |
+| `--glass-sea` | `.tabs` |
+| `--glass-coral` | Danger buttons |
+
+Don't put `--glass-*` on cards or other large panes; they stay neutral frosted glass.
 
 `data-tone="success|warning|danger|info"` sets `--tone` for `.badge`, `.callout`, `.stat-delta` and `.menu-item`.
 `data-glass="aqua|olive|amber|lavender"` colors `.avatar`; no attribute means white glass.

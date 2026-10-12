@@ -34,7 +34,11 @@
   --well-shadow: light-dark(rgba(26,53,55,.14), rgba(0,0,0,.4));
   --knob: light-dark(rgba(255,255,255,.94), rgba(236,251,248,.94));
   --field: light-dark(rgba(222,236,230,.86), rgba(52,76,79,.66));
-  --track: light-dark(rgba(186,224,210,.78), rgba(43,91,85,.50));
+  /* Tinted glass for floating controls; text on them uses --ink, a deep shade of the same glass. */
+  --glass-cobalt: light-dark(#B3C4F6, #34509E);
+  --glass-sea: light-dark(#BFE2D5, #2B5B55);
+  --glass-milk: light-dark(#E2EDE8, #34494C);
+  --glass-coral: light-dark(#F3C2BA, #7E3530);
   --border: light-dark(rgba(255,255,255,.78), rgba(210,250,240,.18));
   --control-border: light-dark(rgba(26,53,55,.30), rgba(210,250,240,.34));
   --divider: light-dark(rgba(31,59,62,.12), rgba(210,250,240,.12));
@@ -42,9 +46,7 @@
   --text-muted: light-dark(#44605F, #BCD7D3);
   --accent: light-dark(#2B4D9C, #9DB4F5);
   --on-accent: light-dark(#F2F5FF, #0B1838);
-  --accent-edge: light-dark(rgba(255,255,255,.55), rgba(255,255,255,.28));
   --danger: light-dark(#AE3434, #F49A90);
-  --on-danger: light-dark(#FFF4F2, #2A0A08);
   --success: light-dark(#2B775D, #88D8B8);
   --warning: light-dark(#8F5C0E, #EAC27A);
   --info: light-dark(#28717F, #8AD0DD);
@@ -101,6 +103,7 @@
 }
 
 /* ---------- base ---------- */
+.btn, .tabs, .composer { --ink: light-dark(color-mix(in oklab, var(--tint), #06161A 74%), color-mix(in oklab, var(--tint), #FFFFFF 84%)); }
 @property --gap { syntax: "*"; inherits: false; }
 *, *::before, *::after { box-sizing: border-box; }
 body {
@@ -220,12 +223,10 @@ kbd {
 .btn:not(:disabled):is(:hover, :focus-visible)::before { opacity: 1; }
 .btn:not(:disabled):active { translate: 0 1px; box-shadow: inset 0 2px 5px var(--well-shadow); }
 .btn:disabled { opacity: .45; cursor: not-allowed; }
-.btn[data-variant="primary"] { --btn-fg: var(--on-accent); background-color: color-mix(in oklab, var(--accent) 90%, transparent); border-color: var(--accent-edge); }
-.btn[data-variant="primary"]:not(:disabled):hover { background-color: color-mix(in oklab, var(--accent) 80%, transparent); }
-.btn[data-variant="danger"] { --btn-fg: var(--on-danger); background-color: color-mix(in oklab, var(--danger) 90%, transparent); border-color: var(--accent-edge); }
-.btn[data-variant="danger"]:not(:disabled):hover { background-color: color-mix(in oklab, var(--danger) 80%, transparent); }
-.btn:is([data-variant="primary"], [data-variant="danger"])::before { background: linear-gradient(165deg, light-dark(rgba(255,255,255,.55), rgba(255,255,255,.7)) 0%, transparent 38%, transparent 68%, light-dark(rgba(255,255,255,.25), rgba(255,255,255,.35)) 100%); }
-.btn:is([data-variant="primary"], [data-variant="danger"]):not(:disabled):active { box-shadow: inset 0 2px 6px rgba(0,0,0,.28); }
+.btn[data-variant="primary"] { --tint: var(--glass-cobalt); }
+.btn[data-variant="secondary"] { --tint: var(--glass-milk); }
+.btn[data-variant="danger"] { --tint: var(--glass-coral); }
+.btn:is([data-variant="primary"], [data-variant="secondary"], [data-variant="danger"]) { --btn-fg: var(--ink); background-color: color-mix(in oklab, var(--tint) 88%, transparent); }
 .btn[data-variant="ghost"] { background-color: transparent; background-image: none; border-color: transparent; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
 .btn[data-variant="ghost"]:not(:disabled):hover { background-color: var(--surface-2); }
 .btn[data-size="sm"] { min-height: 34px; padding: 0 12px; font-size: var(--fs-s); }
@@ -591,8 +592,28 @@ select.input {
 .dropzone[data-over] { border-color: var(--accent); background-color: color-mix(in oklab, var(--accent) 8%, var(--well)); }
 .dropzone:has(input:focus-visible) { outline: 2px solid var(--focus); outline-offset: 3px; }
 
+.composer {
+  --tint: var(--glass-milk);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 4px 4px 6px;
+  color: var(--ink);
+  background-color: color-mix(in oklab, var(--tint) 86%, transparent);
+  background-image: var(--frost);
+  border-radius: var(--r-btn);
+  box-shadow: inset 0 1px 0 var(--border), 0 8px 18px -12px var(--shadow-c);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  backdrop-filter: blur(16px) saturate(1.2);
+}
+.composer > input { flex: 1; min-width: 0; padding: 6px; font: inherit; color: var(--ink); background: none; border: 0; outline: none; }
+.composer > input::placeholder { color: color-mix(in oklab, var(--ink) 66%, transparent); }
+.composer .btn[data-variant="ghost"] { --btn-fg: var(--ink); }
+.composer .btn[data-variant="ghost"]:not(:disabled):hover { background-color: transparent; }
+
 /* ---------- navigation ---------- */
 .tabs {
+  --tint: var(--glass-sea);
   position: relative;
   isolation: isolate;
   display: inline-flex;
@@ -601,9 +622,10 @@ select.input {
   width: fit-content;
   max-width: 100%;
   padding: 4px;
-  background-color: var(--track);
+  background-color: color-mix(in oklab, var(--tint) 85%, transparent);
   background-image: var(--frost);
   border-radius: var(--r-btn);
+  box-shadow: inset 0 1px 0 var(--border), 0 8px 18px -12px var(--shadow-c);
   -webkit-backdrop-filter: blur(16px) saturate(1.2);
   backdrop-filter: blur(16px) saturate(1.2);
 }
@@ -630,16 +652,16 @@ select.input {
   font: inherit;
   font-size: 14px;
   font-weight: 700;
-  color: var(--text-muted);
+  color: color-mix(in oklab, var(--ink) 76%, transparent);
   background: none;
   border: 0;
   border-radius: var(--r-btn);
   cursor: pointer;
   transition: color var(--dur) var(--ease);
 }
-.tabs button:hover { color: var(--text); }
+.tabs button:hover { color: var(--ink); }
 .tabs[data-size="sm"] button { padding: 3px 10px; font-size: var(--fs-s); }
-.tabs button:is([aria-selected="true"], [aria-pressed="true"]) { color: var(--text); }
+.tabs button:is([aria-selected="true"], [aria-pressed="true"]) { color: var(--ink); }
 .tabs:not([data-ind]) button:is([aria-selected="true"], [aria-pressed="true"]) { background-color: var(--surface-raised); }
 
 .nav { display: grid; gap: 2px; }
@@ -944,7 +966,7 @@ select.input {
 
 @media (prefers-reduced-transparency: reduce) {
   :root { --surface: var(--surface-solid); --surface-2: light-dark(#D8E6E1, #17323A); --well: var(--surface-2); --tooltip-bg: light-dark(#164240, #305E60); --surface-pop: var(--surface-solid); }
-  .card, .btn, .input, .tabs, .toast, .menu, .dialog, .sheet, [data-tooltip]::after { -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .card, .btn, .input, .tabs, .composer, .toast, .menu, .dialog, .sheet, [data-tooltip]::after { -webkit-backdrop-filter: none; backdrop-filter: none; }
   select.input::picker(select) { -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
 @media (prefers-reduced-motion: reduce) {

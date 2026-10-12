@@ -378,7 +378,7 @@ fieldset.field legend { padding: 0; margin-bottom: 6px; font-size: var(--fs-s); 
       </div>
 
       <!-- Inputs -->
-      <div class="group-head"><h3>Inputs</h3><p class="muted small">Text, select, date, file, choice, slider</p></div>
+      <div class="group-head"><h3>Inputs</h3><p class="muted small">Text, select, date, file, choice, slider, input bar</p></div>
       <div class="grid" style="--min: 320px; --gap: 20px">
         <div class="card specimen">
           <header><h4>Text</h4><code>.field .input</code></header>
@@ -481,6 +481,17 @@ fieldset.field legend { padding: 0; margin-bottom: 6px; font-size: var(--fs-s); 
             <input class="range" id="c-budget" type="range" min="3000" max="30000" step="1000" value="12000">
           </div>
           <p class="note">The thumb is the same glass bead as the switch. It turns into a lens while you hold it.</p>
+        </div>
+
+        <div class="card specimen">
+          <header><h4>Input bar</h4><code>.composer</code></header>
+          <form class="composer" data-demo-composer>
+            <button type="button" class="btn" data-variant="ghost" data-icon data-size="sm" aria-label="Attach receipt"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+            <input placeholder="Lunch, 2,400" aria-label="New expense">
+            <button type="button" class="btn" data-variant="ghost" data-icon data-size="sm" aria-label="Speak"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+            <button type="submit" class="btn" data-variant="primary" data-icon data-size="sm" aria-label="Add expense"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
+          </form>
+          <p class="note">A floating bar for quick entry, like the tabs: no outline and no focus ring, just the caret. Use one per screen, usually pinned to the bottom.</p>
         </div>
       </div>
 
@@ -734,7 +745,12 @@ fieldset.field legend { padding: 0; margin-bottom: 6px; font-size: var(--fs-s); 
   &lt;button class="menu-item"&gt;Edit&lt;/button&gt;
 &lt;/div&gt;
 
-&lt;div class="progress" role="progressbar" aria-valuenow="68"&gt;&lt;span style="--v: 68"&gt;&lt;/span&gt;&lt;/div&gt;</code></pre>
+&lt;div class="progress" role="progressbar" aria-valuenow="68"&gt;&lt;span style="--v: 68"&gt;&lt;/span&gt;&lt;/div&gt;
+
+&lt;form class="composer"&gt;
+  &lt;input placeholder="Lunch, 2,400" aria-label="New expense"&gt;
+  &lt;button class="btn" data-variant="primary" data-icon data-size="sm" aria-label="Add expense"&gt;…&lt;/button&gt;
+&lt;/form&gt;</code></pre>
       </div>
     </div>
   </section>
@@ -855,6 +871,16 @@ fieldset.field legend { padding: 0; margin-bottom: 6px; font-size: var(--fs-s); 
     b.addEventListener("click", function () {
       b.setAttribute("data-loading", "");
       setTimeout(function () { b.removeAttribute("data-loading"); showToast("Receipt scanned"); }, 1600);
+    });
+  });
+
+  document.querySelectorAll("[data-demo-composer]").forEach(function (f) {
+    f.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var input = f.querySelector("input");
+      if (!input.value.trim()) return;
+      input.value = "";
+      showToast("Expense added");
     });
   });
 

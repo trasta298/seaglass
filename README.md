@@ -18,7 +18,7 @@ Every detail in Seaglass comes from one of these.
 |---|---|---|
 | 1 | **Surfaces are frosted glass** | Cards, buttons, inputs, menus and dialogs blur what's behind them and carry a fine frost grain. Nothing shines while it's dry; only edges glow faintly. |
 | 2 | **Corners are tumbled pebbles** | Radii are slightly uneven but point-symmetric, like glass rolled smooth by the sea. Boxes of running text keep even corners for readability. |
-| 3 | **Rarity is importance** | On a real beach, white, green and brown glass are everywhere; cobalt is rare; red is rarest. So surfaces are sand and sea green, **cobalt means "you can act here"**, and **red only means danger**. |
+| 3 | **Rarity is importance** | On a real beach, white, green and brown glass are everywhere; cobalt is rare; red is rarest. So surfaces are sand and sea green, **cobalt means "you can act here"**, and **red only means danger**. Floating controls are tinted pieces of that glass, with text in a deeper shade of the same color. |
 | 4 | **Touch makes it wet** | Hover clears the frost and slides a film of water over the glass. While you press a switch, a radio or a checkbox, its knob turns into a clear lens you can see through. |
 
 ![Wet on hover, lens while pressed, tumbled corners](docs/screenshots/signature.webp)
@@ -48,7 +48,7 @@ Everything a typical app needs, each with hover, focus, pressed, disabled and lo
 |---|---|
 | Basics | Type scale, links, inline code, `kbd`, dividers, layout helpers (`stack`, `row`, `grid`) |
 | Actions | Buttons (primary, secondary, ghost, danger, small, icon, loading), popover menus, filter chips, removable tags |
-| Inputs | Text, search, prefixed amount, textarea, select with a frosted picker, date, file dropzone, checkbox, radio, switch, range slider |
+| Inputs | Text, search, prefixed amount, textarea, select with a frosted picker, date, file dropzone, checkbox, radio, switch, range slider, floating input bar |
 | Navigation | Sliding tabs, segmented control, side nav, breadcrumb, pagination |
 | Display | Stats, key–value lists, lists, tables, badges, sea-glass avatars, tooltips, accordion |
 | Feedback | Callouts, progress (determinate and indeterminate), spinner, skeleton, dialog, side sheet, toast with undo, empty state |

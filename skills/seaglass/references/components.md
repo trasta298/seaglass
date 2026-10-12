@@ -36,6 +36,8 @@ Icons are inline SVG with `class="icon"` (24×24 viewBox, stroke-based, `aria-hi
 
 `data-loading` hides the label and shows a spinner; keep the label text for screen readers.
 
+Primary, secondary and danger buttons are tinted glass (cobalt, milky sea green, coral) with text in a deep shade of the same color. Ghost buttons have no glass until hovered.
+
 ## Menu
 
 Popover API + CSS anchor positioning. Give each pair a unique anchor name.
@@ -91,6 +93,19 @@ For a group label without a single control, use `<span class="label">` inside `.
 ```
 
 Chromium renders a frosted custom picker (`appearance: base-select`); other browsers keep the native list with a themed chevron. Don't build a custom dropdown.
+
+## Input bar
+
+A floating quick-entry bar, styled like the tabs: tinted glass, no outline, no focus ring (the caret is the indicator). One per screen, usually pinned to the bottom. For forms, use `.field` + `.input` instead.
+
+```html
+<form class="composer">
+  <button type="button" class="btn" data-variant="ghost" data-icon data-size="sm" aria-label="Attach receipt">…</button>
+  <input placeholder="Lunch, 2,400" aria-label="New expense">
+  <button type="button" class="btn" data-variant="ghost" data-icon data-size="sm" aria-label="Speak">…</button>
+  <button type="submit" class="btn" data-variant="primary" data-icon data-size="sm" aria-label="Add expense">…</button>
+</form>
+```
 
 ## Dropzone
 

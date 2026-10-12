@@ -26,7 +26,7 @@ Every decision should be explainable by one of these. When a request conflicts w
 
 1. **Surfaces are frosted glass.** Cards, buttons, inputs, menus, dialogs and toasts blur what is behind them and carry a fine frost texture. While nothing is touched, draw no highlights or reflections; only edges may glow faintly.
 2. **Corners are tumbled pebbles.** Radii are slightly uneven but point-symmetric (top-left = bottom-right). Use the `--r-*` tokens; never write a single plain radius on a glass element. Boxes that hold running text (`.callout`, code blocks) use even corners (`--r-box`) for readability.
-3. **Rarity is importance.** Common beach colors (grey, white, sea green, sand) are for surfaces and dividers; every color is a hue in a role (see `references/tokens.md`). Rare cobalt is only for actions and selected control state: the primary button and pressed chips are cobalt glass (`--glass-cobalt`), and `--accent` marks checked checks/switches, slider fill, the select checkmark, a drag-over dropzone and links. The rarest, red (`--danger`), is only for destructive actions and failures. Location/selection in navigation (current tab, nav item, page) uses raised white glass (`--surface-raised`), not cobalt. Progress bars and standalone spinners use `--progress-c`; a loading button's spinner follows its ink. Focus uses sea green (`--focus`).
+3. **Rarity is importance.** Common beach colors (grey, white, sea green) are for surfaces and dividers; every color is a hue in a role (see `references/tokens.md`). Rare cobalt is only for actions and selected control state: the primary button and pressed chips are cobalt glass (`--glass-cobalt`), and `--accent` marks checked checks/switches, slider fill, the select checkmark, a drag-over dropzone and links. The rarest, red (`--danger`), is only for destructive actions and failures. Location/selection in navigation (current tab, nav item, page) uses raised white glass (`--surface-raised`), not cobalt. Progress bars and standalone spinners use `--progress-c`; a loading button's spinner follows its ink. Focus uses sea green (`--focus`).
 4. **Touch makes it wet.** Hover makes glass clearer with a wet sheen; where there is no glass, a thin water film (`--surface-2`) appears. While pressed, knobs, beads and checks become a clear lens. Buttons sink 1px instead of scaling.
 
 ## Choosing components
@@ -53,8 +53,15 @@ Every decision should be explainable by one of these. When a request conflicts w
 | Longer editing | `dialog.sheet` |
 | Result of an action | `.toast` (with undo where possible) |
 | Nothing to show | `.empty` with one primary action |
+| Rows of items | `.list` (with `.meta`); tabular data → `.table` in `.table-scroll` |
+| Label–value pairs, key numbers | `.kv`; `.stat` |
+| App navigation | `.nav` (side), `.breadcrumb`, `.pagination` |
+| Expandable detail | `details.accordion` |
+| Waiting | `.progress` (known or unknown length), `.spinner`, `.skeleton` |
+| Separating groups inside a card | `.divider` |
+| Code | `pre.code` |
 
-Full markup for every component, with states: `references/components.md`. Token names and when to use each: `references/tokens.md`. The live catalog is `catalog.html` in the Seaglass repo; open it or screenshot it when unsure how something should look.
+Full markup for every component, with states: `references/components.md`. Token names and when to use each: `references/tokens.md`. The live catalog is `catalog.html` in the Seaglass repo; open it or screenshot it when unsure how something should look. Classes defined in the catalog's inline `<style>` (`.app-grid`, `.transfer`, `.swatch` …) are page chrome, not part of the system.
 
 ## Don'ts
 
@@ -70,4 +77,4 @@ Full markup for every component, with states: `references/components.md`. Token 
 
 ## Writing UI copy
 
-Japanese UI. Name actions by what happens (「支出を追加」, not 「送信」) and keep the same verb in the toast (「支出を追加しました」). Errors say what went wrong and how to fix it, without apologizing.
+Match the app's language (Japanese apps: 「支出を追加」, not 「送信」). Name actions by what happens and keep the same verb in the toast (「支出を追加しました」). Errors say what went wrong and how to fix it, without apologizing.

@@ -22,15 +22,22 @@
     r.style.setProperty("--v", (r.value - min) / (max - min) * 100);
   }
 
+  function within(scope, selector) {
+    var found = Array.prototype.slice.call(scope.querySelectorAll(selector));
+    if (scope.matches && scope.matches(selector)) found.unshift(scope);
+    return found;
+  }
+
   function init(scope) {
-    (scope || document).querySelectorAll(".tabs").forEach(function (list) {
+    scope = scope || document;
+    within(scope, ".tabs").forEach(function (list) {
       if (list.hasAttribute("data-sg")) return;
       list.setAttribute("data-sg", "");
       if (resize) resize.observe(list);
       selection.observe(list, { subtree: true, attributeFilter: ["aria-selected", "aria-pressed"] });
       placeIndicator(list);
     });
-    (scope || document).querySelectorAll(".range").forEach(syncRange);
+    within(scope, ".range").forEach(syncRange);
   }
 
   document.addEventListener("input", function (e) {
@@ -47,7 +54,11 @@
     e.target.removeAttribute("data-moved");
   });
   if (document.fonts) document.fonts.ready.then(function () {
-    document.querySelectorAll(".tabs[data-sg]").forEach(placeIndicator);
+    // Re-place without the slide: the web font changing widths is not a user action.
+    document.querySelectorAll(".tabs[data-sg]").forEach(function (list) {
+      list.removeAttribute("data-ind");
+      placeIndicator(list);
+    });
   });
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { init(); });

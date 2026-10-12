@@ -18,7 +18,7 @@ Every detail in Seaglass comes from one of these.
 |---|---|---|
 | 1 | **Surfaces are frosted glass** | Cards, buttons, inputs, menus and dialogs blur what's behind them and carry a fine frost grain. Nothing shines while it's dry; only edges glow faintly. |
 | 2 | **Corners are tumbled pebbles** | Radii are slightly uneven but point-symmetric, like glass rolled smooth by the sea. Boxes of running text keep even corners for readability. |
-| 3 | **Rarity is importance** | On a real beach, white, green and brown glass are everywhere; cobalt is rare; red is rarest. So surfaces are sand and sea green, **cobalt means "you can act here"**, and **red only means danger**. Floating controls are tinted pieces of that glass, with text in a deeper shade of the same color. |
+| 3 | **Rarity is importance** | On a real beach, white, grey and green glass are everywhere; cobalt is rare; red is rarest. So surfaces are grey and sea green, **cobalt means "you can act here"**, and **red only means danger**. Floating controls are tinted pieces of that glass, with text in a deeper shade of the same color. |
 | 4 | **Touch makes it wet** | Hover clears the frost and slides a film of water over the glass. While you press a switch, a radio or a checkbox, its knob turns into a clear lens you can see through. |
 
 ![Wet on hover, lens while pressed, tumbled corners](docs/screenshots/signature.webp)
@@ -32,7 +32,7 @@ Every detail in Seaglass comes from one of these.
 
 ## Light and dark
 
-The light theme is a shoreline at noon: shallow water fading into sand. The dark theme is the same beach at night, with heavier strokes so text stays legible on dark glass.
+The light theme is a shoreline in morning mist: shallow water fading into pale sea air. The dark theme is the same beach at night, with heavier strokes so text stays legible on dark glass.
 
 | Light | Dark |
 |---|---|
@@ -119,7 +119,7 @@ The skill loads only when the agent works on UI, so it doesn't crowd out the res
 
 ## Browser support
 
-Built on current CSS: `light-dark()`, `backdrop-filter`, `@starting-style`, the Popover API and `linear()` easing. Recent Chrome, Edge, Safari and Firefox are all fine.
+Built on current CSS: `light-dark()`, OKLCH relative colors (`oklch(from …)`), `backdrop-filter`, `@starting-style`, the Popover API and `linear()` easing. That means Chrome/Edge 119+, Safari 18+ and Firefox 128+.
 
 A few touches are progressive enhancements and fall back gracefully:
 

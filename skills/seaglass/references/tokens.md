@@ -4,7 +4,7 @@ Values live only in `seaglass.css`; this file lists names and when to use them. 
 
 ## Color
 
-Every color is one of seven glass hues (plus `--sand` for the page) in one of a few roles. Never write a raw color; if a need isn't covered, pick a hue and a role and ask before adding a token.
+Every color is one of seven glass hues (plus `--shore` for the page) in one of a few roles. Never write a raw color; if a need isn't covered, pick a hue and a role and ask before adding a token.
 
 ### Hues
 
@@ -12,9 +12,9 @@ Each is a single OKLCH value; roles derive from it with relative color syntax, s
 
 | Hue | Beach glass | Roles it plays |
 |---|---|---|
-| `--sand` | Sand | Page background |
-| `--stone` | Grey glass | Text, neutral panes, shadows |
-| `--sea` | Sea green (the most common) | Water film, edges, success, focus, milk and sea glass |
+| `--shore` | Sea mist | Page background |
+| `--stone` | Grey glass | Text, neutral panes, shadows, milk glass |
+| `--sea` | Sea green (the most common) | Water film, edges, success, focus, sea glass |
 | `--aqua` | Aqua | Info and progress (shifted toward blue), avatar |
 | `--amber` | Brown bottle glass | Warning, avatar |
 | `--lavender` | Sun-purpled glass | Avatar only |
@@ -80,17 +80,17 @@ The `--r-*` pebble radii are point-symmetric; if you need a new size, keep the p
 
 - `--font-body` (Zen Maru Gothic), `--font-code`
 - `--fw-body`: 400 in light, 500 in dark (thin strokes lose contrast on dark glass)
-- Sizes: `--fs-xs` 12, `--fs-s` 13, `--fs-m` 15 (body), `--fs-l` 18, `--fs-xl` 24, `--fs-2xl`, `--fs-3xl` (fluid)
+- Sizes, small to large: `--fs-xs`, `--fs-s`, `--fs-ui` (controls, menus, callouts), `--fs-m` (body), `--fs-l`, `--fs-xl`, `--fs-2xl`, `--fs-3xl` (the last two fluid)
 - Use `.amount` for money and counts (tabular figures, bold, no wrap)
 
 ## Space
 
-`--space-1` 4 · `--space-2` 8 · `--space-3` 12 · `--space-4` 16 · `--space-5` 24 · `--space-6` 32 · `--space-7` 48 · `--space-8` 72
+`--space-1` … `--space-8`, a step scale from tight (inside controls) to section spacing.
 
-Layout helpers take a local `--gap` (not inherited): `.stack`, `.row` (`data-justify="between|end"`), `.grid` (`--min` column width).
+Layout helpers take a local `--gap` and `--min` (not inherited): `.stack`, `.row` (`data-justify="between|end"`), `.grid` (`--min` column width).
 
 ## Motion
 
-- `--dur` .22s for color/opacity, `--dur-move` .5s for movement
+- `--dur` for color/opacity, `--dur-move` for movement
 - `--ease` for most transitions, `--spring` for knobs, tab indicator and chevrons
 - Texture: `--frost` (per theme), `--grain` / `--grain-o` (page grain overlay)

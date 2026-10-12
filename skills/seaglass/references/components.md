@@ -36,7 +36,7 @@ Icons are inline SVG with `class="icon"` (24×24 viewBox, stroke-based, `aria-hi
 
 `data-loading` hides the label and shows a spinner; keep the label text for screen readers.
 
-Primary, secondary (also the default with no variant) and danger buttons are tinted glass (cobalt, milky sea green, coral) with text in a deep shade of the same color. Ghost buttons have no glass; their text takes the ink of the glass they sit on (for example inside `.composer` or `.toast`).
+Primary, secondary (also the default with no variant) and danger buttons are tinted glass (cobalt, near-white milk, coral) with text in a deep shade of the same color. Ghost buttons have no glass; their text takes the ink of the glass they sit on (for example inside `.composer` or `.toast`).
 
 ## Menu
 
@@ -47,7 +47,7 @@ Popover API + CSS anchor positioning. Give each pair a unique anchor name.
 <div class="menu" id="m1" popover style="position-anchor: --m1">
   <button class="menu-item" popovertarget="m1" popovertargetaction="hide"><svg class="icon">…</svg>編集<kbd>E</kbd></button>
   <div class="menu-sep"></div>
-  <button class="menu-item" data-tone="danger"><svg class="icon">…</svg>削除</button>
+  <button class="menu-item" data-tone="danger" popovertarget="m1" popovertargetaction="hide"><svg class="icon">…</svg>削除</button>
 </div>
 ```
 
@@ -96,7 +96,7 @@ Chromium renders a frosted custom picker (`appearance: base-select`); other brow
 
 ## Input bar
 
-A floating quick-entry bar, styled like the tabs: tinted glass, no outline, no focus ring (the caret is the indicator). One per screen, usually pinned to the bottom. For forms, use `.field` + `.input` instead.
+A floating quick-entry bar that floats like the tabs: milk glass, no outline, no focus ring (the caret is the indicator). One per screen, usually pinned to the bottom with `position: sticky; bottom: var(--space-4)`. For forms, use `.field` + `.input` instead.
 
 ```html
 <form class="composer">
@@ -152,6 +152,8 @@ Works for real tabs (`role="tab"` + `aria-selected`) and segmented buttons (`ari
   <button aria-pressed="false">月</button>
 </div>
 ```
+
+Tabs only handle the look. For real tab panels, the app adds `aria-controls`, the panels, and arrow-key movement with a roving `tabindex`.
 
 ## Nav, breadcrumb, pagination
 
@@ -213,6 +215,12 @@ Works for real tabs (`role="tab"` + `aria-selected`) and segmented buttons (`ari
   <summary>端数はどう扱われますか?</summary>
   <div class="accordion-body">…</div>
 </details>
+```
+
+## Code block
+
+```html
+<pre class="code"><code>…</code></pre>
 ```
 
 ## Feedback
